@@ -55,10 +55,10 @@ const CourseCard: React.FC<Props> = ({ course, size = "sm" }) => {
         </div>
         <LinkButton
           label="Enroll at"
-          className="text-sm bg-primary text-white hover:no-underline!"
+          className=" bg-primary text-white hover:no-underline!"
           link={`/dashboard/course/${course.slug}`}
           rightIcon={
-            <span className="text-xs ml-5 md:ml-10">
+            <span className="text-sm ml-5 md:ml-10">
               {formatPrice(course.price)}
             </span>
           }
