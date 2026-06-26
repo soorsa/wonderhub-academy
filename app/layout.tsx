@@ -1,4 +1,5 @@
 import Navbar from "@/components/landing/Navbar";
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
@@ -22,8 +23,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`h-full antialiased scrollbar-hide`}>
+      <Analytics />
       <body
-        className={`${montserrat.className} font-medium overflow-x-hidden relative`}
+        className={`${montserrat.className} font-medium w-screen overflow-x-hidden relative`}
       >
         <div className="fixed bg-pink-200 z-0 rounded-full -top-120 sm:-top-100 w-200 h-200 -left-120 sm:-left-100" />
         <div className="relative inset-0 z-50 backdrop-blur-3xl">

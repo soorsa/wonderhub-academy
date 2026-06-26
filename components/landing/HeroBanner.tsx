@@ -21,18 +21,18 @@ const HeroBanner = () => {
           className="w-fit! px-6 bg-primary text-white"
           rightIcon={<ArrowRight />}
         />
-        <div className="grid grid-cols-3 w-fit gap-4">
+        <div className="grid grid-cols-3 w-fit gap-4 sm:gap-10">
           <div className="flex flex-col">
-            <p className="font-extrabold">80k+</p>
-            <p className="text-xs">Students</p>
+            <p className="font-extrabold text-2xl sm:text-4xl">80k+</p>
+            <p className="text-xs sm:text-base text-gray-700">Students</p>
           </div>
           <div className="flex flex-col">
-            <p className="font-extrabold">+20k</p>
-            <p className="text-xs">Courses</p>
+            <p className="font-extrabold text-2xl sm:text-4xl">+20k</p>
+            <p className="text-xs sm:text-base text-gray-700">Courses</p>
           </div>
           <div className="flex flex-col">
-            <p className="font-extrabold">10k+</p>
-            <p className="text-xs">Instructors</p>
+            <p className="font-extrabold text-2xl sm:text-4xl">10k+</p>
+            <p className="text-xs sm:text-base text-gray-700">Instructors</p>
           </div>
         </div>
       </div>
