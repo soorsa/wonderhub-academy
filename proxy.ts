@@ -3,7 +3,7 @@ import { useUserState } from "@/zustand/user.state";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { token, isLoggedIn } = useUserState.getState();
   const { pathname } = request.nextUrl;
   console.log({
