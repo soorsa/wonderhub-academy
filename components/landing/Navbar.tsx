@@ -15,8 +15,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation"; // Import usePathname
 import { useEffect, useState } from "react";
 import { useUserState } from "../../zustand/user.state";
+const navLinks = [
+  { name: "Home", href: "/" },
+  {
+    name: "Courses",
+    href: "/courses",
+  },
+  { name: "Our Instructors", href: "/our-instructors" },
+  { name: "Teach With Us", href: "/become-an-instructor", isPop: true },
+];
 
-export default function Navbar() {
+export const Navbar2 = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { user, isLoggedIn } = useUserState();
@@ -31,45 +40,21 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const courses = [
-    { name: "Python", total_courses: 10 }, // Fixed typo: "Pyhton" -> "Python"
-    { name: "JavaScript", total_courses: 32 },
-    { name: "Java", total_courses: 2 },
-    { name: "C#", total_courses: 3 },
-    { name: "C++", total_courses: 1 },
-  ];
-
-  const navLinks = [
-    { name: "Home", href: "/" },
-    {
-      name: "Courses",
-      href: "/courses",
-      dropdown: true,
-      dropdownLinks: courses.map((course) => ({
-        name: course.name,
-        href: `/courses?course=${encodeURIComponent(course.name)}`, // Added encodeURIComponent
-        total_courses: course.total_courses,
-      })),
-    },
-    { name: "Our Instructors", href: "/our-instructors" },
-    { name: "Teach With Us", href: "/become-an-instructor", isPop: true },
-  ];
-
   return (
-    <header
+    <nav
       className={clsx(
         "sticky top-0 z-50 w-full transition-colors duration-300",
         scrolled ? "bg-white/50 backdrop-blur-sm" : "bg-transparent",
         "text-gray-700"
       )}
     >
-      <nav className="w-full px-4 md:px-0 md:max-w-7xl mx-auto flex justify-between items-center pt-4 pb-1">
+      <div className="w-full px-4 md:px-0 md:max-w-7xl mx-auto flex justify-between items-center pt-4 pb-1">
         <div className="flex items-center space-x-2">
           <Link href="/">
             {" "}
             {/* Make logo clickable */}
             <Image
-              src="/images/logo.png"
+              src="/images/simple-logo.png"
               alt="Wonderhub Logo"
               width={160}
               height={60}
@@ -84,10 +69,7 @@ export default function Navbar() {
           {navLinks.map((link) => (
             <li
               key={link.href}
-              className={clsx(
-                "relative",
-                (link.dropdown || link.isPop) && "group"
-              )}
+              className={clsx("relative", link.isPop && "group")}
             >
               <Link
                 href={link.href}
@@ -99,30 +81,7 @@ export default function Navbar() {
                 )}
               >
                 {link.name}
-                {link.dropdown && <ChevronDown className="ml-1 h-4 w-4" />}
               </Link>
-
-              {/* Dropdown for Courses */}
-              {link.dropdown && (
-                <div className="absolute top-full left-0 mt-2 w-50 p-2 bg-white shadow-2xl rounded-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 pointer-events-auto">
-                  <ul className="space-y-1">
-                    {link.dropdownLinks?.map((drop) => (
-                      <li key={drop.name}>
-                        <Link
-                          href={drop.href}
-                          onClick={() => setIsMobileMenuOpen(false)}
-                          className="flex rounded-lg justify-between items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
-                        >
-                          {drop.name}
-                          <span className="bg-purple-600 text-white rounded-full px-2 text-[10px] py-0.5">
-                            {drop.total_courses}
-                          </span>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
 
               {/* Popup for "Teach With Us" */}
               {link.isPop && (
@@ -223,7 +182,7 @@ export default function Navbar() {
         >
           <Menu size={28} />
         </button>
-      </nav>
+      </div>
 
       {/* Mobile Menu Drawer */}
       <div
@@ -240,17 +199,10 @@ export default function Navbar() {
 
         {/* Side drawer */}
         <div className="absolute right-0 top-0 w-80 h-full bg-white shadow-2xl p-6 overflow-y-auto">
-          <div className="flex justify-between items-center mb-8">
-            <Image
-              src="/images/logo.png"
-              alt="Wonderhub Logo"
-              width={120}
-              height={40}
-              className="object-contain"
-            />
+          <div className="flex justify-end items-center mb-8">
             <button
               onClick={() => setIsMobileMenuOpen(false)}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 border border-gray-200 flex justify-center items-center hover:bg-gray-100 rounded-lg transition-colors"
               aria-label="Close menu"
             >
               <X size={24} />
@@ -304,6 +256,128 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-    </header>
+    </nav>
   );
-}
+};
+
+// components/Navbar.tsx
+
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathName = usePathname();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <nav
+      className={`sticky top-0 w-full z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-white/80 backdrop-blur-sm text-gray-700"
+          : "bg-transparent text-gray-700"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          <Link
+            href="/"
+            className="flex items-center divide-x divide-primary/30"
+          >
+            <div className="relative w-10 pr-2">
+              <Image
+                src={`/images/simple-logo.png`}
+                alt="wonderhub academy"
+                width={100}
+                height={100}
+              />
+            </div>
+            <div className="pl-2">
+              <div className="text-xl font-bold bg-linear-to-r from-primary to-pink-600 bg-clip-text text-transparent ">
+                WonderHUB
+              </div>
+              <div className="text-gray-500 text-xs">
+                Online Learning Platform
+              </div>
+            </div>
+          </Link>
+
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center space-x-8">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className={`hover:text-primary transition-colors duration-200 ${
+                  pathName === link.href
+                    ? "font-medium text-primary"
+                    : "text-primary/50"
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
+            <Link
+              href="/register?role=student"
+              className="bg-linear-to-r from-primary to-pink-600 text-white px-6 py-2 rounded-full hover:to-pink-800 transition-all duration-200"
+            >
+              Get Started
+            </Link>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className={`md:hidden ${
+              scrolled ? "text-gray-700" : "text-gray-700"
+            }`}
+          >
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
+        {isOpen && (
+          <div
+            onClick={() => setIsOpen(false)}
+            className="md:hidden fixed inset-0 h-screen top-0 left-0 right-0 bg-white shadow-lg py-4 px-4 flex justify-center items-center"
+          >
+            <div className="border absolute top-4 right-4 rounded-lg border-gray-200 flex items-center justify-center p-1 hover:bg-gray-200 cursor-pointer">
+              <X />
+            </div>
+            <div className="-mt-20 space-y-3 text-center">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
+                  className={`block text-lg hover:text-primary transition-colors py-2 ${
+                    pathName === link.href
+                      ? "text-primary bg-primary/5 rounded-lg"
+                      : "text-gray-700"
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              ))}
+              <Link
+                href="/register?role=student"
+                onClick={() => setIsOpen(false)}
+                className="block bg-linear-to-r from-primary to-pink-600 text-white px-10 text-xl font-bold py-2 rounded-full text-center"
+              >
+                Get Started
+              </Link>
+            </div>
+          </div>
+        )}
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;
