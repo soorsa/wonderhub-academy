@@ -1,3 +1,4 @@
+"use client";
 import { formatPrice } from "@/utils/format.utils";
 import { ErrorMessage, Field, useField } from "formik";
 import { Info } from "lucide-react";

@@ -2,6 +2,7 @@
 import CourseCard from "@/components/landing/courses/CourseCard";
 import SearchBar from "@/components/landing/courses/SearchBar";
 import { courses } from "@/data/constants";
+import { SlidersHorizontal } from "lucide-react";
 import { useState } from "react";
 
 const CourseListAndFilter = () => {
@@ -28,8 +29,14 @@ const CourseListAndFilter = () => {
   return (
     <div className="px-2 sm:px-8 w-screen space-y-4">
       <div className="flex flex-col sm:flex-row sm:items-center gap-2 ">
-        <div className="sm:w-1/3">
-          <SearchBar onSetParams={setparams} params={params} />
+        <div className="sm:w-1/3 flex gap-2">
+          <div className="flex-1">
+            <SearchBar onSetParams={setparams} params={params} />
+          </div>
+          <div className="bg-white flex gap-1 items-center justify-center sm:hidden p-2 rounded-xl cursor-pointer hover:bg-primary-200">
+            <SlidersHorizontal />
+            <div className="">Filter</div>
+          </div>
         </div>
         <div className="flex sm:w-2/3 items-center text-sm sm:text-base divide-x divide-gray-200">
           <div className="pr-2">
@@ -62,7 +69,10 @@ const CourseListAndFilter = () => {
         </div>
       </div>
       <div className="grid sm:grid-cols-4 gap-4">
-        <div className="bg-white rounded-xl h-130"></div>
+        <div
+          className="bg-white rounded-xl h-130 hidden sm:block
+        "
+        ></div>
         <div className="col-span-3 gap-x-2 gap-y-4 grid sm:grid-cols-3">
           {courses.map((course, i) => (
             <CourseCard course={course} key={i} size="sm" />

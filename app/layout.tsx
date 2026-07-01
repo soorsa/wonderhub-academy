@@ -1,7 +1,8 @@
-import Navbar from "@/components/landing/Navbar";
+import { QueryProvider } from "@/components/global/QueryProvider";
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -24,15 +25,23 @@ export default function RootLayout({
   return (
     <html lang="en" className={`h-full antialiased scrollbar-hide`}>
       <Analytics />
-      <body
-        className={`${montserrat.className} font-medium w-screen overflow-x-hidden relative`}
-      >
-        <div className="fixed bg-pink-200 z-0 rounded-full -top-120 sm:-top-100 w-200 h-200 -left-120 sm:-left-100" />
-        <div className="relative inset-0 z-50 backdrop-blur-3xl">
-          <Navbar />
-          {children}
-        </div>
-      </body>
+      <QueryProvider>
+        <body
+          className={`${montserrat.className} font-medium w-screen overflow-x-hidden relative`}
+        >
+          <Toaster
+            position="top-center"
+            toastOptions={{
+              style: {
+                borderRadius: "10px",
+                fontSize: 14,
+              },
+            }}
+          />
+          <div className="fixed bg-pink-200 z-0 rounded-full -top-120 sm:-top-100 w-200 h-200 -left-120 sm:-left-100" />
+          <div className="backdrop-blur-3xl min-h-screen">{children}</div>
+        </body>
+      </QueryProvider>
     </html>
   );
 }
