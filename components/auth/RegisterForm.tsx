@@ -53,9 +53,13 @@ const SignupForm = () => {
     >
       {({ isValid }) => (
         <Form className="space-y-3 flex flex-col px-0 md:px-20">
-          <h1 className="font-medium text-3xl text-black text-center py-4">
-            Register{" "}
-          </h1>
+          <div className="text-center py-4 space-y-2">
+            <h1 className="font-black text-4xl">Register</h1>
+            <div className="text-sm text-gray-500">
+              wonderHUB Academy learn anything on the go.
+            </div>
+          </div>
+
           {/* Render based on state */}
           <div className="grid grid-cols-2 gap-2">
             <InputField name="first_name" placeholder="First Name" />
@@ -94,19 +98,6 @@ const SignupForm = () => {
               )
             }
           />
-          <div className="flex justify-between items-center">
-            <div className="flex items-center space-x-2 text-xs px-6">
-              <input
-                type="checkbox"
-                id="remember"
-                className="text-adron-green"
-              />
-              <label htmlFor="remember">Remember me</label>
-            </div>
-            <span className="text-[#FF4A1B] text-xs cursor-pointer">
-              Forgot password?
-            </span>
-          </div>
           <Button
             type="submit"
             isLoading={isPending}

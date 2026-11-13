@@ -1,16 +1,15 @@
+import { poppins } from "@/app/fonts";
+import { AuthProvider } from "@/components/global/AuthProvider";
+import Modal from "@/components/global/Modal";
 import { QueryProvider } from "@/components/global/QueryProvider";
+import { cn } from "@/lib/utils";
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
+import { Geist } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
-const montserrat = Montserrat({
-  // weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-});
-// const poppins = Poppins({
-//   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-// });
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: "Academy | WonderHub",
@@ -23,24 +22,40 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`h-full antialiased scrollbar-hide`}>
+    <html
+      lang="en"
+      className={cn(
+        "h-full",
+        "antialiased",
+        "scrollbar-hide",
+        // bricolageGrotesque.variable,
+        poppins.variable
+      )}
+    >
       <Analytics />
       <QueryProvider>
-        <body
-          className={`${montserrat.className} font-medium w-screen overflow-x-hidden relative`}
-        >
-          <Toaster
-            position="top-center"
-            toastOptions={{
-              style: {
-                borderRadius: "10px",
-                fontSize: 14,
-              },
-            }}
-          />
-          <div className="fixed bg-pink-200 z-0 rounded-full -top-120 sm:-top-100 w-200 h-200 -left-120 sm:-left-100" />
-          <div className="backdrop-blur-3xl min-h-screen">{children}</div>
-        </body>
+        <AuthProvider>
+          <body
+            className={cn(
+              "font-medium w-screen overflow-x-hidden relative font-poppins",
+              poppins.variable
+              // bricolageGrotesque.variable
+            )}
+          >
+            <Toaster
+              position="top-center"
+              toastOptions={{
+                style: {
+                  borderRadius: "10px",
+                  fontSize: 14,
+                },
+              }}
+            />
+            <Modal />
+            <div className="fixed bg-pink-200 z-0 rounded-full -top-120 sm:-top-100 w-200 h-200 -left-120 sm:-left-100" />
+            <div className="backdrop-blur-3xl min-h-screen">{children}</div>
+          </body>
+        </AuthProvider>
       </QueryProvider>
     </html>
   );

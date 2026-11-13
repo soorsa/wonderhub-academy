@@ -14,12 +14,19 @@ interface LoginResponse {
   token: string;
   user: User;
 }
+interface ErrorMsg {
+  message: string;
+}
 type LoginError = {
   non_field_errors: string;
   error: string;
   errors: string[];
+  detail: string;
+  messages: ErrorMsg[];
 };
-
+interface ErrorResponse {
+  detail: string;
+}
 type RegisterError = {
   non_field_errors: string[];
   error: string;
@@ -64,7 +71,7 @@ interface GetUserResponse {
   user: User;
 }
 interface CourseFilterParams {
-  name?: string;
+  title?: string;
   type?: string;
   duration?: string;
   page: number;
@@ -73,13 +80,48 @@ interface CourseFilterParams {
   interest_rate?: number;
   ordering?: string;
 }
+interface Instructor {
+  id: string;
+  username: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+}
 interface Course {
   id: number;
   slug: string;
   title: string;
-  instructor: string;
-  desc: string;
+  instructor: Instructor;
+  description: string;
   price: number;
+  level: string;
+  thumbnail: string;
+  is_published: boolean;
+  total_lectures: number;
+  benefits: string[];
+  suitable_for: string[];
+  topics: Topic[];
+  topic: string[];
+}
+
+interface Modules {
+  id: number;
+  order: number;
+  title: string;
+  slug: string;
+  lecture_count: number;
+  course: Course;
+}
+interface Lesson {
+  id: number;
+  order: number;
+  title: string;
+  slug: string;
+  duration: string;
+  video_url: string;
+  is_preview: boolean;
+  text_content: string;
+  module_obj: Modules;
 }
 interface EnrolledCourse {
   id: number;
@@ -108,4 +150,98 @@ interface NotificationType {
   is_read: NotificationStatus;
   created_at: string | null;
   updated_at: string | null;
+}
+interface ModalState {
+  isCloseable: boolean;
+  isTransModal: boolean;
+  isOpen: boolean;
+  content: ReactNode | null;
+  title: string;
+  size: string;
+  // setTitle: (title: string) => void;
+  goBack: () => void;
+  open: (content: StateModalContent) => void;
+  openStrong: (content: ReactNode) => void;
+  openTransModal: (content: ReactNode) => void;
+  close: () => void;
+}
+interface StateModalContent {
+  content: ReactNode;
+  title?: string;
+  size?: string;
+  goBack?: () => void;
+}
+interface CoursePayload {
+  title: string;
+  instructor?: number;
+  description: string;
+  slug?: string;
+  topic?: string[];
+  level?: string;
+  price?: number;
+  benefits?: string[];
+  is_published?: boolean;
+}
+interface ModulePayload {
+  title: string;
+  order: number;
+  course: slug;
+}
+interface LessonPayload {
+  title: string;
+  order: number;
+  module: string;
+  text_content: string;
+  video_url: string;
+  slug?: string;
+}
+interface CategoryPayload {
+  name: string;
+  description: string;
+  slug?: string;
+}
+interface TopicPayload {
+  name: string;
+  description: string;
+  category: string;
+  slug?: string;
+}
+interface Category {
+  id: number;
+  name: string;
+  slug: string;
+  description: string;
+  is_popular: boolean;
+  total_courses: number;
+}
+interface Topic {
+  id: number;
+  name: string;
+  slug: string;
+  description: string;
+  category: string;
+  total_courses: number;
+}
+
+interface PaginatedResponse<Data> {
+  count: number;
+  next: string;
+  previous: string;
+  results: Data[];
+}
+interface Params {
+  page?: number;
+  paginate?: boolean;
+}
+
+// Type definition that adjusts based on the 'paginate' flag
+// 1. Your reusable helper type definition
+type ApiResponse<T, P extends Params> = P["paginate"] extends "false"
+  ? T[]
+  : PaginatedResponse<T>;
+
+interface DeletePayload {
+  action: string;
+  api_path: string;
+  slug: string;
 }

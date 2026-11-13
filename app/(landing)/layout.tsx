@@ -1,3 +1,4 @@
+import Footer from "@/components/landing/Footer";
 import Navbar from "@/components/landing/Navbar";
 export default function LandingLayout({
   children,
@@ -5,9 +6,12 @@ export default function LandingLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="">
+    <div className={``}>
       <Navbar />
       {children}
+      <div className="px-1 sm:px-4">
+        <Footer />
+      </div>
     </div>
   );
 }

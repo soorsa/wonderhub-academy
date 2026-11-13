@@ -15,6 +15,7 @@ interface RadioGroupProps {
   className?: string;
   optionClassName?: string;
   orientation?: "horizontal" | "vertical";
+  size?: "xs" | "sm" | "md" | "lg";
 }
 
 const RadioGroup: React.FC<RadioGroupProps> = ({
@@ -24,6 +25,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
   className = "",
   optionClassName = "",
   orientation = "vertical",
+  size = "sm",
 }) => {
   const [field, meta, helpers] = useField(name);
   const hasError = meta.touched && meta.error;
@@ -34,7 +36,9 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
         <p className="mb-2 font-medium text-gray-600 text-sm">{label}</p>
       )}
       <div
-        className={`flex gap-2 ${
+        className={`flex ${size === "xs" && "gap-1"} ${
+          size === "sm" && "gap-2"
+        } ${
           orientation === "horizontal" ? "flex-row flex-wrap" : "flex-col"
         } ${className}`}
       >
@@ -44,7 +48,11 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
           return (
             <label
               key={option.value}
-              className={`flex items-center justify-between border rounded-xl p-3 cursor-pointer transition-all 
+              className={`flex items-center justify-between border ${
+                size === "xs" && "rounded-md p-1.5"
+              } ${
+                size === "sm" && "rounded-xl p-3"
+              } cursor-pointer transition-all 
                 ${
                   isSelected
                     ? !hasError
@@ -59,7 +67,9 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
                 {/* Custom Radio Circle */}
                 <div
                   className={`
-                    w-5 h-5 rounded-full border flex items-center justify-center
+                    ${size === "sm" && "w-5 h-5"} ${
+                    size === "xs" && "w-5 h-5"
+                  } rounded-full border flex items-center justify-center
                     ${
                       isSelected
                         ? !hasError
@@ -70,12 +80,20 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
                   `}
                 >
                   {isSelected && (
-                    <Check className="text-white w-3 h-3" />
+                    <Check
+                      className={`text-white ${size === "xs" && "w-3 h-3"} ${
+                        size === "sm" && "w-3 h-3"
+                      }`}
+                    />
                     // <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
                   )}
                 </div>
 
-                <span className="text-gray-800 text-sm capitalize">
+                <span
+                  className={`text-gray-800 ${size === "xs" && "text-xs"} ${
+                    size === "sm" && "text-sm"
+                  } capitalize`}
+                >
                   {option.label}
                 </span>
               </div>

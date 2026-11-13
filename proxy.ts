@@ -1,15 +1,14 @@
 // middleware.ts
-import { useUserState } from "@/zustand/user.state";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 export function proxy(request: NextRequest) {
-  const { token, isLoggedIn } = useUserState.getState();
+  const token = request.cookies.get("auth_token")?.value;
+  const user_role = request.cookies.get("user_role")?.value;
   const { pathname } = request.nextUrl;
-  console.log({
-    "is logged in": isLoggedIn,
-    token: token,
-  });
+  // console.log({
+  //   token: token,
+  // });
   // Auth routes that should NOT be accessible when logged in
   const authRoutes = [
     "/login",
@@ -27,19 +26,30 @@ export function proxy(request: NextRequest) {
     "/profile",
     "/courses/create",
     "/admin",
+    "/instructor",
   ];
   const isProtectedRoute = protectedRoutes.some((route) =>
     pathname.startsWith(route)
   );
 
   // If trying to access auth route while logged in - redirect to dashboard
-  if (token && isLoggedIn && isAuthRoute) {
+  if (token && isAuthRoute) {
+    console.log("yes token");
     const dashboardUrl = new URL("/dashboard", request.url);
+    const adminUrl = new URL("/admin", request.url);
+    const instructorUrl = new URL("/instructor", request.url);
+    if (user_role === "admin") {
+      return NextResponse.redirect(adminUrl);
+    }
+    if (user_role === "instructor") {
+      return NextResponse.redirect(instructorUrl);
+    }
     return NextResponse.redirect(dashboardUrl);
   }
 
   // If no token and trying to access protected route - redirect to login
   if (!token && isProtectedRoute) {
+    console.log("no token");
     const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set("redirect", pathname);
     return NextResponse.redirect(loginUrl);
