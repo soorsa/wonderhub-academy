@@ -7,7 +7,7 @@ import { AdminCoursesListskeleton } from "@/components/skeletons/Skeletons";
 import { useGetCourses } from "@/hooks/useQuery";
 import { useModal } from "@/zustand/modal.state";
 import { PlusCircle, SlidersHorizontal } from "lucide-react";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
 const CoursesPage = () => {
   const [params, setparams] = useState({ page: 1 });
@@ -33,11 +33,13 @@ const CoursesPage = () => {
         </div>
         <div className="flex items-center gap-2">
           <div className="flex flex-1 gap-2 items-center">
-            <SearchBar
-              params={params}
-              onSetParams={setparams}
-              className="w-full flex-1 rounded-md! sm:py-1"
-            />
+            <Suspense>
+              <SearchBar
+                params={params}
+                onSetParams={setparams}
+                className="w-full flex-1 rounded-md! sm:py-1"
+              />
+            </Suspense>
             <Button
               label="Filter"
               icon={<SlidersHorizontal className="w-3 h-3 sm:w-5 sm:h-5" />}

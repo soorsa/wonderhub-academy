@@ -45,7 +45,7 @@ const CourseFlatList: React.FC<Props> = ({
                 </p>
                 <p className="text-[11px] text-gray-500 line-clamp-1">
                   {" "}
-                  {course.desc}
+                  {course.description}
                 </p>
               </div>
             </div>

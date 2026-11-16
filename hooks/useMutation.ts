@@ -195,7 +195,11 @@ export const useCreateCourse = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (payload: CoursePayload) => {
-      const res = await api.post(`/courses/`, payload);
+      const res = await api.post(`/courses/`, payload, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       return res.data;
     },
     onSuccess: () => {
@@ -226,11 +230,18 @@ export const useEditCourse = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (payload: CoursePayload) => {
-      const res = await api.patch(`/courses/${payload.slug}/`, payload, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const { thumbnail, ...rest } = payload;
+      const formattedPayload =
+        typeof thumbnail !== "string" ? payload : { ...rest };
+      const res = await api.patch(
+        `/courses/${payload.slug}/`,
+        formattedPayload,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       return res.data;
     },
     onSuccess: () => {

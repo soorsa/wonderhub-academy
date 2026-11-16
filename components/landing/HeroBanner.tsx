@@ -1,9 +1,15 @@
-import { Badge } from "@/components/ui/badge";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarGroup,
+  AvatarGroupCount,
+  AvatarImage,
+} from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import Slider from "@/components/utils/Slider";
 import { getInitials } from "@/lib/utils";
 import { cn } from "cn";
-import { PlayCircle, Star, UserCircle } from "lucide-react";
+import { Headset, PlayCircle, Star, UserCircle } from "lucide-react";
 import Image from "next/image";
 const instructors = [
   {
@@ -147,12 +153,12 @@ const SLIDE_CONTENTS = [
       />
     ),
     theme: {
-      bg: "bg-gradient-to-r from-white/80 via-purple-50/60 to-primary/5",
+      bg: "bg-gradient-to-r from-indigo-600/30 via-purple-50/60 to-primary/5",
       primaryTextColor: "text-slate-900",
       secondaryTextColor: "text-primary",
       descriptionColor: "text-slate-600",
       primaryButtonStyle: "text-white bg-primary",
-      secondaryButtonStyle: "border-slate-200",
+      secondaryButtonStyle: "border-slate-400",
     },
   },
   {
@@ -202,9 +208,9 @@ const heroSlides = SLIDE_CONTENTS.map((item, i) => (
     )}
   >
     <div className="">
-      <Badge className="mb-6 rounded-full bg-[#FFC93C] px-3 py-1 text-[#1B1A3A] hover:bg-[#FFC93C]">
+      {/* <Badge className="mb-6 rounded-full bg-[#FFC93C] px-3 py-1 text-[#1B1A3A] hover:bg-[#FFC93C]">
         {item.badge}
-      </Badge>
+      </Badge> */}
       <h1
         className={cn(
           "text-4xl font-extrabold sm:leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl",
@@ -229,6 +235,7 @@ const heroSlides = SLIDE_CONTENTS.map((item, i) => (
           size="lg"
           className={cn("h-12 px-8 text-base", item.theme.primaryButtonStyle)}
         >
+          <PlayCircle className="mr-2 h-5 w-5" />
           Browse courses
         </Button>
         <Button
@@ -236,14 +243,48 @@ const heroSlides = SLIDE_CONTENTS.map((item, i) => (
           variant="ghost"
           className={cn("h-12 px-8 text-base", item.theme.secondaryButtonStyle)}
         >
-          <PlayCircle className="mr-2 h-5 w-5" />
-          Watch a free lesson
+          <Headset className="mr-2 h-5 w-5" />
+          Apply to teach with us
         </Button>
       </div>
-      <p className="mt-6 flex items-center gap-2 text-sm text-[#1B1A3A]/70">
-        <Star className="h-4 w-4 fill-[#FFC93C] text-[#FFC93C]" />
-        Rated 4.8 by 38,000 learners in 90 countries
-      </p>
+      <div
+        className={cn(
+          "flex items-center gap-6 pt-4 text-sm",
+          item.theme.descriptionColor
+        )}
+      >
+        <AvatarGroup className="-space-x-6 sm:-space-x-4">
+          <Avatar size="lg">
+            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+            <AvatarFallback className="text-gray-200">CN</AvatarFallback>
+          </Avatar>
+          <Avatar size="lg">
+            <AvatarImage
+              src="https://github.com/maxleiter.png"
+              alt="@maxleiter"
+            />
+            <AvatarFallback className="text-gray-200">LR</AvatarFallback>
+          </Avatar>
+          <Avatar size="lg">
+            <AvatarImage
+              src="https://github.com/evilrabbit.png"
+              alt="@evilrabbit"
+            />
+            <AvatarFallback className="text-gray-200">ER</AvatarFallback>
+          </Avatar>
+          <Avatar size="lg">
+            <AvatarImage
+              src="https://github.com/evilrabbit.png"
+              alt="@evilrabbit"
+            />
+            <AvatarFallback className="text-gray-200">ER</AvatarFallback>
+          </Avatar>
+          <AvatarGroupCount>+3</AvatarGroupCount>
+        </AvatarGroup>
+        <div className="flex items-center gap-1.5">
+          Join 15k+ Students Nationawide
+        </div>
+      </div>
     </div>
 
     {/* Stacked course previews */}

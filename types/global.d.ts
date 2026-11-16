@@ -71,14 +71,11 @@ interface GetUserResponse {
   user: User;
 }
 interface CourseFilterParams {
-  title?: string;
-  type?: string;
-  duration?: string;
+  search?: string;
   page: number;
-  duration?: number;
-  created_at?: string;
-  interest_rate?: number;
-  ordering?: string;
+  page_size?: number;
+  topic__slug?: string;
+  ordering?: "title" | "-created_at" | "create_at" | "topic";
 }
 interface Instructor {
   id: string;
@@ -86,6 +83,8 @@ interface Instructor {
   first_name: string;
   last_name: string;
   email: string;
+  bio: string;
+  job_title: string;
 }
 interface Course {
   id: number;
@@ -94,8 +93,13 @@ interface Course {
   instructor: Instructor;
   description: string;
   price: number;
+  undiscounted_price: number;
+  sale_type: "sale" | "presale" | "free";
+  sale_header: string;
+  sales_message: string;
   level: string;
   thumbnail: string;
+  preview_video: string;
   is_published: boolean;
   total_lectures: number;
   benefits: string[];
@@ -157,7 +161,9 @@ interface ModalState {
   isOpen: boolean;
   content: ReactNode | null;
   title: string;
+  description: string;
   size: string;
+  headerStyle: string;
   // setTitle: (title: string) => void;
   goBack: () => void;
   open: (content: StateModalContent) => void;
@@ -169,6 +175,8 @@ interface StateModalContent {
   content: ReactNode;
   title?: string;
   size?: string;
+  description?: string;
+  headerStyle?: string;
   goBack?: () => void;
 }
 interface CoursePayload {
@@ -181,6 +189,13 @@ interface CoursePayload {
   price?: number;
   benefits?: string[];
   is_published?: boolean;
+  undiscounted_price?: number;
+  sale_type?: "sale" | "presale" | "free";
+  sale_header?: string;
+  sales_message?: string;
+  thumbnail?: File | string;
+  preview_video?: string;
+  suitable_for?: string[];
 }
 interface ModulePayload {
   title: string;
@@ -244,4 +259,10 @@ interface DeletePayload {
   action: string;
   api_path: string;
   slug: string;
+}
+interface SelectOption {
+  value: string | number;
+  label: string;
+  description?: string;
+  icon?: React.ReactNode;
 }

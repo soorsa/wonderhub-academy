@@ -2,7 +2,6 @@ import CourseFlatList from "@/components/dashboard/CourseFlatList";
 import EnrolledCourseProgressList from "@/components/dashboard/EnrolledCourseProgressList";
 import InfoGrid from "@/components/dashboard/InfoGrid";
 import OngoingCourseSlider from "@/components/dashboard/OngoinCourseSlider";
-import { courses } from "@/data/constants";
 
 const page = () => {
   return (
@@ -12,13 +11,13 @@ const page = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <EnrolledCourseProgressList
-          courses={courses}
+          courses={[]}
           listName="My Courses"
           isError={false}
           isLoading={false}
         />
         <CourseFlatList
-          courses={courses}
+          courses={[]}
           listName="Recommended for you"
           isError={false}
           isLoading={false}

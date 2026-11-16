@@ -17,9 +17,10 @@ const CourseCard: React.FC<Props> = ({ course, size = "sm" }) => {
       } flex flex-col bg-white h-fit rounded-xl overflow-hidden hover:shadow-lg`}
     >
       <Link
-        href={`/course/${course.slug}`}
-        className="h-37.5 w-full overflow-hidden"
+        href={`/courses/${course.topics[0].category}/${course.topics[0].slug}/${course.slug}`}
+        className="h-37.5 w-full overflow-hidden relative"
       >
+        <div className="absolute inset-0 bg-black/5 z-10" />
         <Image
           src={course.thumbnail || "/images/course.jpg"}
           fill
@@ -30,7 +31,7 @@ const CourseCard: React.FC<Props> = ({ course, size = "sm" }) => {
       <div className="flex flex-col gap-2 p-4">
         <div className="">
           <Link
-            href={`/course/${course.slug}`}
+            href={`/courses/${course.topics[0].category}/${course.topics[0].slug}/${course.slug}`}
             className="line-clamp-1 font-bold"
           >
             {course.title}
@@ -55,10 +56,14 @@ const CourseCard: React.FC<Props> = ({ course, size = "sm" }) => {
           </div>
         </div>
         <div className="space-x-1.5">
-          <span className="text-lg font-bold">{formatPrice(course.price)}</span>
-          <span className="line-through text-slate-500 text-sm font-normal">
+          <span className="text-lg font-bold" title={formatPrice(course.price)}>
             {formatPrice(course.price)}
           </span>
+          {course.undiscounted_price > course.price && (
+            <span className="line-through text-slate-500 text-sm font-normal">
+              {formatPrice(course.undiscounted_price)}
+            </span>
+          )}
         </div>
       </div>
     </div>

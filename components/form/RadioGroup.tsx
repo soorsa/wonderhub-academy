@@ -1,4 +1,5 @@
 "use client";
+import { cn } from "cn";
 import { useField } from "formik";
 import { Check, Info } from "lucide-react";
 import React from "react";
@@ -13,6 +14,7 @@ interface RadioGroupProps {
   label?: string;
   options: Option[];
   className?: string;
+  lableClassName?: string;
   optionClassName?: string;
   orientation?: "horizontal" | "vertical";
   size?: "xs" | "sm" | "md" | "lg";
@@ -23,6 +25,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
   label,
   options,
   className = "",
+  lableClassName = "",
   optionClassName = "",
   orientation = "vertical",
   size = "sm",
@@ -33,7 +36,14 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
   return (
     <div className={`w-full ${className}`}>
       {label && (
-        <p className="mb-2 font-medium text-gray-600 text-sm">{label}</p>
+        <p
+          className={cn(
+            "mb-2 font-medium text-gray-600 text-sm",
+            lableClassName
+          )}
+        >
+          {label}
+        </p>
       )}
       <div
         className={`flex ${size === "xs" && "gap-1"} ${

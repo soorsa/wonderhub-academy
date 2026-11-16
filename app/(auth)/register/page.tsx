@@ -1,5 +1,5 @@
 import SignupForm from "@/components/auth/RegisterForm";
-import { Loader } from "lucide-react";
+import { PageLoader } from "@/components/utils/Loaders";
 import { Metadata } from "next";
 import { Suspense } from "react";
 export const metadata: Metadata = {
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 const RegisterPage = () => {
   return (
-    <Suspense fallback={<Loader />}>
+    <Suspense fallback={<PageLoader />}>
       <SignupForm />;
     </Suspense>
   );

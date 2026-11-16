@@ -1,6 +1,7 @@
 "use client";
 import { useModal } from "@/zustand/modal.state";
-import { ChevronLeft, X } from "lucide-react";
+import { cn } from "cn";
+import { X } from "lucide-react";
 import { useEffect } from "react";
 const Modal = () => {
   const {
@@ -12,6 +13,8 @@ const Modal = () => {
     title,
     isCloseable,
     isTransModal,
+    headerStyle,
+    description,
   } = useModal();
 
   useEffect(() => {
@@ -41,31 +44,28 @@ const Modal = () => {
       // onClick={close}
     >
       <div
-        className={`relative bg-white rounded-lg w-[95%] ${size} ${
+        className={`relative bg-white rounded-lg w-[95%] overflow-hidden ${size} ${
           isTransModal ? "bg-transparent" : "shadow-lg"
         }`}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className=" p-2 flex items-start">
-          <button
-            className="h-7 w-7  border-r border-gray-200 hover:bg-gray-100"
-            onClick={goBack}
-          >
-            <ChevronLeft size={20} />
-          </button>
-          <div className="flex-1 font-bold mx-2 text-lg overflow-x-scroll uppercase text-nowrap scrollbar-hide">
-            {title}
-          </div>
+        <div className={cn("p-2 space-y-1", headerStyle)}>
+          <div className="flex items-start">
+            <div className="flex-1 font-bold text-lg overflow-x-scroll uppercase text-nowrap scrollbar-hide">
+              {title}
+            </div>
 
-          {isCloseable && (
-            <button
-              className="bg-white hover:bg-gray-200 rounded-lg border border-gray-200 text-gray-600 hover:text-gray-900 cursor-pointer h-7 w-7 flex justify-center items-center"
-              onClick={close}
-              aria-label="Close Modal"
-            >
-              <X size={20} />
-            </button>
-          )}
+            {isCloseable && (
+              <button
+                className="bg-white hover:bg-gray-200 rounded-lg border border-gray-200 text-gray-600 hover:text-gray-900 cursor-pointer h-7 w-7 flex justify-center items-center"
+                onClick={close}
+                aria-label="Close Modal"
+              >
+                <X size={20} />
+              </button>
+            )}
+          </div>
+          <p className="text-sm text-muted">{description}</p>
         </div>
         <div
           className={`px-4 pb-4 rounded-lg max-h-[75vh] overflow-y-auto scrollbar-hide`}

@@ -76,12 +76,12 @@ const ListInputField: React.FC<ListInputFieldProps> = ({
 
               return (
                 <div key={index} className="flex items-stretch gap-1">
-                  <div className="h-8 w-8 flex items-center justify-center text-gray-700 text-sm bg-gray-100 rounded-md">
+                  <div className="h-7 w-7 flex items-center text-center font-bold justify-center text-white text-sm bg-primary/20 rounded-sm">
                     {index + 1}
                   </div>
                   <div className="flex-1">
                     <div
-                      className={`w-full relative flex flex-row border bg-transparent rounded-md py-1.5 ${
+                      className={`w-full relative flex flex-row border bg-gray-200 rounded-sm py-1.5 ${
                         hasItemError ? "border-red-500" : "border-zinc-200"
                       }`}
                     >
@@ -98,7 +98,7 @@ const ListInputField: React.FC<ListInputFieldProps> = ({
                         onBlur={() =>
                           form.setFieldTouched(`${name}[${index}]`, true)
                         }
-                        className="text-gray-900 text-sm rounded-lg focus:ring-0 block w-full px-5 outline-none"
+                        className="text-gray-900 text-xs rounded-lg focus:ring-0 block w-full px-5 outline-none"
                       />
 
                       {/* Error Icon */}

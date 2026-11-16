@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 "use client";
+import { cn } from "cn";
 import { ErrorMessage, Field, useField } from "formik";
 import { Info } from "lucide-react";
 import React, { useEffect, useState } from "react";
@@ -30,6 +31,7 @@ interface InputFieldProps {
   icon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   className?: string;
+  labelClassName?: string;
   rows?: number;
   theme?: string;
   formatMoney?: boolean;
@@ -44,6 +46,7 @@ const InputField: React.FC<InputFieldProps> = ({
   icon,
   rightIcon,
   className = "",
+  labelClassName = "",
   rows = 6,
   theme = "light",
   formatMoney = false,
@@ -79,7 +82,14 @@ const InputField: React.FC<InputFieldProps> = ({
   return (
     <div className="w-full text-left">
       {label && (
-        <div className="text-xs text-gray-600 capitalize mb-0.5">{label}</div>
+        <div
+          className={cn(
+            "text-xs text-gray-600 capitalize mb-0.5",
+            labelClassName
+          )}
+        >
+          {label}
+        </div>
       )}
       <div
         className={`w-full relative flex ${

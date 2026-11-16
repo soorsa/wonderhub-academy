@@ -10,10 +10,10 @@ import { useParams, useSearchParams } from "next/navigation";
 const CourseGridAndList = () => {
   const { topic, category } = useParams();
   const searchParams = useSearchParams();
-  const filterParams = {
-    title: searchParams.get("title"),
+  const filterParams: CourseFilterParams = {
+    search: searchParams.get("search") || "",
     page: 1,
-    topic__slug: topic ? topic : null,
+    topic__slug: topic ? String(topic) : "",
   };
   const { data, isLoading } = useGetCourses(filterParams);
   const courses = data?.results || [];

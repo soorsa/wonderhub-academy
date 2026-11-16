@@ -7,6 +7,8 @@ export const useModal = create<ModalState>((set) => ({
   isOpen: false,
   content: null,
   title: "",
+  description: "",
+  headerStyle: "",
   size: "w-xs sm:w-sm",
   goBack() {},
   open: (content) =>
@@ -16,6 +18,8 @@ export const useModal = create<ModalState>((set) => ({
       isCloseable: true,
       isTransModal: false,
       title: content.title,
+      description: content.description,
+      headerStyle: content.headerStyle,
       goBack: content.goBack,
       size: content.size || "w-xs sm:w-sm",
     }),

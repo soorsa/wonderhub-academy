@@ -1,6 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useGetCourseBySlug } from "@/hooks/useQuery";
+import { cn, getInitials } from "@/lib/utils";
 import { CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
@@ -10,34 +12,40 @@ const CourseDetail: React.FC = () => {
   const { data: course, isLoading } = useGetCourseBySlug(slug);
   return (
     <>
-      <h1 className="text-2xl sm:text-3xl font-bold">{course?.title}</h1>
-
       <div className="space-y-4">
-        <div className="w-full aspect-video bg-black rounded-xl overflow-hidden relative">
+        <div className="w-full aspect-video rounded-xl overflow-hidden relative">
           <Image
-            src="/images/course.jpg"
-            alt=""
-            height={100}
-            width={100}
-            className="w-full h-full"
+            src={course?.thumbnail || "/images/course.jpg"}
+            alt={course?.title || ""}
+            fill
           />
-          <div className="bg-black/50 absolute inset-0"></div>
+          <div className="bg-black/5 absolute inset-0"></div>
         </div>
 
         <div className="bg-white p-6 rounded-xl space-y-4">
-          <div className="flex items-center gap-4">
-            <Image
-              src="/images/course.jpg"
-              alt="Mentor"
-              height={100}
-              width={100}
-              className="rounded-full w-12 h-12"
-            />
-            <div>
-              <p className="font-semibold">{course?.instructor}</p>
-              <p className="text-sm text-gray-500">
-                Mentor • Illustrator at Google
-              </p>
+          <div className="space-y-2">
+            <h1 className="text-2xl sm:text-3xl font-bold">{course?.title}</h1>
+            <div className="flex items-center gap-1">
+              <Avatar size="lg">
+                <AvatarImage
+                  src={course?.instructor.job_title}
+                  alt={course?.instructor.first_name}
+                />
+                <AvatarFallback className={cn("uppercase")}>
+                  {getInitials(
+                    `${course?.instructor.first_name} ${course?.instructor.last_name}`
+                  )}
+                </AvatarFallback>
+              </Avatar>
+              <div>
+                <p className="font-semibold capitalize">
+                  {course?.instructor.first_name} {course?.instructor.last_name}
+                </p>
+                <p className="text-xs text-slate-500">
+                  Mentor •{" "}
+                  {course?.instructor.job_title || "Instructor at wonderHUB"}
+                </p>
+              </div>
             </div>
           </div>
 

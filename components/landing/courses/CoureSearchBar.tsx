@@ -4,7 +4,7 @@ import { useGetTopics } from "@/hooks/useQuery";
 import { SlidersHorizontal } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
 const CourseSearchBar = () => {
   // const { data, isLoading } = useGetAllTopics();
@@ -18,8 +18,8 @@ const CourseSearchBar = () => {
   const [params, setparams] = useState<CourseFilterParams>({
     page: 1,
     ordering: "-created_at",
-    title: "",
-    type: "",
+    search: "",
+    topic__slug: String(topic),
   });
   const topics: Topic[] = (data as unknown as Topic[]) || [];
 
@@ -35,11 +35,13 @@ const CourseSearchBar = () => {
       <div className="flex flex-col sm:flex-row sm:items-center gap-2 ">
         <div className="sm:w-1/3 flex gap-2">
           <div className="flex-1">
-            <SearchBar
-              onSetParams={setparams}
-              params={params}
-              className="py-2"
-            />
+            <Suspense>
+              <SearchBar
+                onSetParams={setparams}
+                params={params}
+                className="py-2"
+              />
+            </Suspense>
           </div>
           <div className="bg-white flex gap-1 items-center justify-center sm:hidden p-2 rounded-xl cursor-pointer hover:bg-primary-200">
             <SlidersHorizontal />

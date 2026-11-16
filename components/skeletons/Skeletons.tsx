@@ -48,18 +48,15 @@ export const CourseCardSkeleton = () => {
       className={`relative min-w-55 flex flex-col bg-white h-fit p-2 md:p-4 rounded-2xl hover:shadow-lg`}
     >
       <div className="h-37.5 w-full rounded-lg overflow-hidden bg-gray-200 animate-pulse" />
-      <div className="flex flex-col gap-2 pt-4">
+      <div className="flex flex-col gap-1 pt-2">
         <div className="line-clamp-1 font-bold h-7 w-full bg-gray-200 rounded-sm animate-pulse" />
+        <div className="h-4 w-2/3 bg-gray-200 rounded-xs" />
+        <div className="text-xs h-14 bg-gray-200 rounded-sm" />
         <div className="grid grid-cols-2 gap-20">
-          <div className="h-3 w-full bg-gray-200 rounded-sm" />
-          <div className="h-3 bg-gray-200 rounded-sm w-full flex-1" />
+          <div className="bg-gray-200 rounded-xs h-3 w-full animate-pulse" />
+          <div className="bg-gray-200 rounded-xs h-3 w-full animate-pulse" />
         </div>
-        <div className="text-xs h-10 bg-gray-200 rounded-sm" />
-        <div className="grid grid-cols-2 gap-20">
-          <div className="bg-gray-200 rounded-sm h-3 w-full animate-pulse" />
-          <div className="bg-gray-200 rounded-sm h-3 w-full animate-pulse" />
-        </div>
-        <div className=" bg-gray-200 rounded-sm h-8 animate-pulse " />
+        <div className="w-2/3 bg-gray-200 rounded-sm h-7 animate-pulse " />
       </div>
     </div>
   );

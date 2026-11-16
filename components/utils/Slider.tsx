@@ -110,7 +110,7 @@ const Slider: React.FC<Props> = ({
       )}
 
       {/* Dots indicator */}
-      <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex space-x-1 bg-black/50 py-2 px-3 rounded-lg">
+      <div className="absolute bottom-0 sm:bottom-5 left-1/2 -translate-x-1/2 flex space-x-1 bg-black/50 py-2 px-3 rounded-lg">
         {slides.map((_, index) => (
           <button
             key={index}

@@ -1,11 +1,14 @@
 "use client";
 import CourseCard from "@/components/landing/courses/CourseCard";
-import { courses } from "@/data/constants";
+import { CourseCardSkeleton } from "@/components/skeletons/Skeletons";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import React from "react";
-
-const HorizontalCourseSlider: React.FC = () => {
+interface Prop {
+  courses: Course[];
+  isLoading: boolean;
+}
+const HorizontalCourseSlider: React.FC<Prop> = ({ courses, isLoading }) => {
   const [emblaRef, embla] = useEmblaCarousel({
     align: "start",
     loop: false,
@@ -28,6 +31,16 @@ const HorizontalCourseSlider: React.FC = () => {
 
   const scrollPrev = () => embla?.scrollPrev();
   const scrollNext = () => embla?.scrollNext();
+
+  if (isLoading) {
+    return (
+      <div className="grid grid-cols-4 gap-4 p-2">
+        {[1, 2, 3, 4].map((i) => (
+          <CourseCardSkeleton key={i} />
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div className="relative w-full mx-auto p-2 md:p-4">

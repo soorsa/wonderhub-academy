@@ -13,15 +13,15 @@ const SearchBar: React.FC<Prop> = ({ params, onSetParams, className }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const initialValues = { query: params.title || "" };
+  const initialValues = { query: params.search || "" };
   const submit = (values: typeof initialValues) => {
     const newSearchParams = new URLSearchParams(searchParams.toString());
 
     // Set/update search params
     if (values.query.trim()) {
-      newSearchParams.set("title", values.query.trim());
+      newSearchParams.set("search", values.query.trim());
     } else {
-      newSearchParams.delete("title");
+      newSearchParams.delete("search");
     }
 
     // Reset pagination when searching
@@ -30,8 +30,7 @@ const SearchBar: React.FC<Prop> = ({ params, onSetParams, className }) => {
     // Update your local/filter state
     onSetParams({
       page: 1,
-      title: values.query,
-      type: "",
+      search: values.query,
     });
 
     // Update URL without reloading the page
