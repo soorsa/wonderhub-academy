@@ -1,9 +1,11 @@
 "use client";
+import Link from "next/link";
 import React from "react";
 
 interface ButtonProps {
-  type?: "button" | "submit" | "reset";
+  type?: "button" | "submit" | "reset" | "link";
   label: string;
+  href?: string;
   loadingLabel?: string;
   onClick?: () => void;
   isLoading?: boolean;
@@ -16,6 +18,7 @@ interface ButtonProps {
 const Button: React.FC<ButtonProps> = ({
   type = "button",
   label,
+  href = "/",
   loadingLabel,
   onClick,
   isLoading = false,
@@ -24,12 +27,27 @@ const Button: React.FC<ButtonProps> = ({
   icon,
   rightIcon,
 }) => {
+  if (type === "link") {
+    return (
+      <Link
+        href={href}
+        className={`w-full flex items-center justify-center py-2 rounded-full transition duration-300 hover:underline underline-offset-3 ${className}
+              `}
+      >
+        <div className="flex items-center justify-center w-full">
+          {icon && <span className="mr-2">{icon}</span>}
+          {label}
+          {rightIcon && <span className="ml-2">{rightIcon}</span>}
+        </div>
+      </Link>
+    );
+  }
   return (
     <button
       type={type}
       onClick={onClick}
       disabled={disabled || isLoading}
-      className={`w-full cursor-pointer py-2 rounded-xl transition duration-300 bg-primary ${className}
+      className={`w-full cursor-pointer py-2 rounded-full transition duration-300 bg-primary text-white ${className}
         ${
           disabled || isLoading
             ? "opacity-50 cursor-not-allowed"

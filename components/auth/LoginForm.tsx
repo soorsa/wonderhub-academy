@@ -1,4 +1,5 @@
 "use client";
+import Checkbox from "@/components/form/CheckBox";
 import InputField from "@/components/form/InputField";
 import Button from "@/components/global/Button";
 import LinkButton from "@/components/global/LinkButton";
@@ -18,6 +19,7 @@ const LoginForm = () => {
   const initialValues = {
     email: "",
     password: "",
+    remember: true,
   };
 
   // Validation schema that changes based on the state (login, forgot, reset)
@@ -39,10 +41,14 @@ const LoginForm = () => {
       onSubmit={handleSubmit}
     >
       {({ isValid }) => (
-        <Form className="space-y-3 flex flex-col px-4 md:px-20">
-          <h1 className="font-medium text-3xl text-black text-center py-4">
-            Login{" "}
-          </h1>
+        <Form className="space-y-3 flex flex-col justify-center px-4 md:px-20">
+          <div className="text-center py-6 space-y-2">
+            <h1 className="font-black text-4xl">Login</h1>
+            <div className="text-sm text-gray-500">
+              wonderHUB Academy learn anything on the go.
+            </div>
+          </div>
+
           {/* Password and Confirm Password Fields */}
           <InputField
             name="email"
@@ -72,14 +78,7 @@ const LoginForm = () => {
           />
           {/* Forgot Password Link */}
           <div className="flex justify-between items-center">
-            <div className="flex items-center space-x-2 text-xs px-6">
-              <input
-                type="checkbox"
-                id="remember"
-                className="text-adron-green"
-              />
-              <label htmlFor="remember">Remember me</label>
-            </div>
+            <Checkbox name="remember" label="remember me?" className="w-fit!" />
             <span className="text-[#FF4A1B] text-xs cursor-pointer">
               Forgot password?
             </span>

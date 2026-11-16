@@ -1,0 +1,47 @@
+export { cn } from "cn";
+
+export const getInitials = (text: string) =>
+  text
+    .split(" ")
+    .slice(0, 2)
+    .map((el) => el[0])
+    .join("");
+
+export const getTimeAgo = (date: string) => {
+  const now = new Date();
+  const past = new Date(date);
+  const diff = Math.floor((now.getTime() - past.getTime()) / 1000);
+
+  if (diff < 60) return "Just now";
+  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+
+  return `${Math.floor(diff / 86400)}d ago`;
+};
+
+export const gettTime = (date: string) => {
+  const time = new Date(date).toLocaleTimeString("en-NG", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+  return time;
+};
+export const getShortDate = (date: string) => {
+  const shortDate = new Date(date).toLocaleDateString("en-NG", {
+    month: "short",
+    day: "numeric",
+  });
+  return shortDate;
+};
+export const getDate = (date: string) => {
+  const fullDate = new Date(date).toLocaleDateString("en-NG", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+  return fullDate;
+};
+
+export const formatLabel = (s?: string) =>
+  s ? s.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) : "—";

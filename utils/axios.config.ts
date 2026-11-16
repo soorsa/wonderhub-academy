@@ -1,7 +1,7 @@
-import { logout } from "@/hooks/auth/useAuth";
 import axios from "axios";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { useUserState } from "../zustand/user.state";
 
 const api = axios.create({
   baseURL: "http://127.0.0.1:8080/", // Replace with your actual API URL
@@ -13,7 +13,7 @@ const api = axios.create({
 
 // Interceptor to attach token if available
 api.interceptors.request.use((config) => {
-  const token = useUserState.getState().token;
+  const token = Cookies.get("auth_token");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -27,8 +27,12 @@ api.interceptors.response.use(
     // Example: Auto logout on 401
     if (status === 401) {
       console.log("Status:", status);
-      toast.error("Session timed out... Login again");
-      logout();
+      toast.error("User session timed out");
+      Cookies.remove("auth_token");
+      Cookies.remove("user_role");
+      // logout();
+      const router = useRouter();
+      router.refresh();
       //   openLogin();
     }
 
