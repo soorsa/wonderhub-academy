@@ -11,6 +11,7 @@ import { getInitials } from "@/lib/utils";
 import { cn } from "cn";
 import { Headset, PlayCircle, Star, UserCircle } from "lucide-react";
 import Image from "next/image";
+import React from "react";
 const instructors = [
   {
     title: "Product Design from Scratch",
@@ -67,36 +68,46 @@ const communities = [
   },
 ];
 function CardStacks() {
+  const rotations = [-10, 3, -2];
+
   return (
     <div className="relative w-full flex items-center justify-center">
       {instructors.slice(0, 3).map((c, i) => (
         <div
           key={c.title}
+          style={
+            {
+              "--top-mobile": `${i * 55}px`,
+              "--top-desktop": `${i * 100}px`,
+              "--left-desktop": `calc(50% - 160px + ${i * 24}px)`,
+              "--rotate-desktop": `${rotations[i]}deg`,
+              transform: `rotate(${rotations[i]}deg)`,
+              zIndex: i + 1,
+            } as React.CSSProperties
+          }
           className={cn(
-            "absolute w-80 h-80 rounded-3xl p-6 shadow-2xl transition-all duration-300",
+            "absolute size-60 sm:size-80 rounded-xl sm:rounded-3xl p-6 shadow-2xl transition-all duration-300",
+            "top-(--top-mobile) sm:top-(--top-desktop)",
+            "sm:left-(--left-desktop)",
             c.tone
           )}
-          style={{
-            top: `${i * 100}px`,
-            left: `calc(50% - 160px + ${i * 24}px)`,
-            transform: `rotate(${[-10, 3, -2][i]}deg)`,
-            zIndex: i + 1,
-          }}
         >
-          <div className="flex items-center gap-3">
-            <div className="border border-current/20 size-10 rounded-full flex justify-center items-center font-semibold text-sm">
+          <div className="flex items-center gap-1 sm:gap-3">
+            <div className="border border-current/20 size-7 sm:size-10 rounded-full flex justify-center items-center font-semibold text-xs sm:text-sm">
               {getInitials(c.name)}
             </div>
             <div>
-              <div className="font-semibold text-sm">{c.name}</div>
-              <div className="text-xs opacity-80">{c.role}</div>
+              <div className="font-semibold text-xs sm:text-sm">{c.name}</div>
+              <div className="text-[9px] sm:text-xs opacity-80">{c.role}</div>
             </div>
           </div>
-          <div className="flex items-center justify-between text-xs font-medium opacity-80 mt-4">
+          <div className="flex items-center justify-between text-xs font-medium opacity-80 mt-2 sm:mt-4">
             <span>{c.category}</span>
             <span>{c.lessons} lessons</span>
           </div>
-          <p className="mt-4 text-xl font-bold leading-tight">{c.title}</p>
+          <p className="mt-2 sm:mt-4 sm:text-xl font-bold leading-tight">
+            {c.title}
+          </p>
           <p className="mt-3 text-xs opacity-80 flex items-center gap-1">
             <Star className="size-3 fill-current" /> {c.rating} instructor
             rating
@@ -112,22 +123,29 @@ function CommunityCards() {
       {communities.slice(0, 4).map((c, i) => (
         <div
           key={c.name}
-          className={`absolute left-0 right-0 rounded-3xl p-6 shadow-xl ${c.theme}`}
-          style={{
-            top: `${i * 96}px`,
-            transform: `rotate(${[-3, 2, -1.5][i]}deg)`,
-            zIndex: i,
-          }}
+          style={
+            {
+              "--top-mobile": `${i * 60}px`,
+              "--top-desktop": `${i * 96}px`,
+              transform: `rotate(${[-3, 2, -6][i]}deg)`,
+              zIndex: i,
+            } as React.CSSProperties
+          }
+          className={`absolute left-0 right-0 top-(--top-mobile) sm:top-(--top-desktop) rounded-lg sm:rounded-3xl p-6 shadow-xl ${c.theme}`}
         >
-          <div className="flex items-center justify-between text-sm font-medium opacity-80">
+          <div className="flex items-center justify-between text-xs sm:text-sm font-medium opacity-80">
             <span>{c.category}</span>
             <div className="flex items-center gap-1">
               <UserCircle className="size-3" />
               <span>{c.members} members</span>
             </div>
           </div>
-          <p className={`mt-6 text-2xl font-bold leading-tight`}>{c.name}</p>
-          <p className="mt-3 text-sm opacity-80">join us</p>
+          <p
+            className={`mt-2 sm:mt-6 text-base sm:text-2xl font-bold leading-tight`}
+          >
+            {c.name}
+          </p>
+          <p className="mt-1 sm:mt-3 text-sm opacity-80">join us</p>
         </div>
       ))}
     </div>
@@ -203,7 +221,7 @@ const heroSlides = SLIDE_CONTENTS.map((item, i) => (
   <div
     key={i}
     className={cn(
-      "mx-auto grid items-center gap-0 lg:grid-cols-[1.3fr_1fr] p-10 rounded-lg",
+      "mx-auto grid items-center gap-5 sm:gap-0 lg:grid-cols-[1.3fr_1fr] p-5 sm:p-10 rounded-lg h-[80vh] max-h-[80vh]",
       item.theme.bg
     )}
   >
@@ -213,7 +231,7 @@ const heroSlides = SLIDE_CONTENTS.map((item, i) => (
       </Badge> */}
       <h1
         className={cn(
-          "text-4xl font-extrabold sm:leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl",
+          "text-xl font-extrabold leading-none sm:leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl",
           item.theme.primaryTextColor
         )}
       >
@@ -224,32 +242,38 @@ const heroSlides = SLIDE_CONTENTS.map((item, i) => (
       </h1>
       <p
         className={cn(
-          "mt-6 max-w-xl sm:text-lg leading-relaxed text-slate-600",
+          "mt-2 sm:mt-6 max-w-xl text-xs sm:text-lg sm:leading-relaxed text-slate-600",
           item.theme.descriptionColor
         )}
       >
         {item.description}
       </p>
-      <div className="mt-8 flex flex-col gap-1 sm:gap-3 sm:flex-row">
+      <div className="mt-8 flex flex-row gap-1 sm:gap-3 sm:flex-row">
         <Button
           size="lg"
-          className={cn("h-12 px-8 text-base", item.theme.primaryButtonStyle)}
+          className={cn(
+            "h-12 px-5 sm:px-8 text-sm sm:text-base",
+            item.theme.primaryButtonStyle
+          )}
         >
-          <PlayCircle className="mr-2 h-5 w-5" />
+          <PlayCircle className="sm:mr-2 h-5 w-5" />
           Browse courses
         </Button>
         <Button
           size="lg"
           variant="ghost"
-          className={cn("h-12 px-8 text-base", item.theme.secondaryButtonStyle)}
+          className={cn(
+            "h-12 px-5 sm:px-8 text-sm sm:text-base",
+            item.theme.secondaryButtonStyle
+          )}
         >
-          <Headset className="mr-2 h-5 w-5" />
-          Apply to teach with us
+          <Headset className="sm:mr-2 h-5 w-5" />
+          Teach with us
         </Button>
       </div>
       <div
         className={cn(
-          "flex items-center gap-6 pt-4 text-sm",
+          "hidden sm:flex items-center gap-6 pt-4 text-sm",
           item.theme.descriptionColor
         )}
       >
@@ -289,7 +313,7 @@ const heroSlides = SLIDE_CONTENTS.map((item, i) => (
 
     {/* Stacked course previews */}
     <div
-      className="relative  mx-auto h-105 w-full max-w-md hidden md:block"
+      className="relative mx-auto h-85 sm:h-105 w-full max-w-md"
       aria-hidden="true"
     >
       {item.display}

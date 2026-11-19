@@ -19,15 +19,18 @@ export function Breadcrumb({ labels = {}, homeLabel }: BreadcrumbProps) {
   const pathSegments = pathname.split("/").filter(Boolean);
 
   return (
-    <nav aria-label="Breadcrumb" className="flex items-center text-sm">
-      <ol className="flex items-center space-x-1.5 md:space-x-2 text-muted-foreground">
+    <nav
+      aria-label="Breadcrumb"
+      className="flex items-center text-xs sm:text-sm"
+    >
+      <ol className="flex items-center space-x-0.5 md:space-x-2 text-muted-foreground">
         {/* Home / Root Link */}
         <li className="inline-flex items-center">
           <Link
             className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
             href="/"
           >
-            {homeLabel ?? <Home className="h-4 w-4" />}
+            {homeLabel ?? <Home className="size-3" />}
           </Link>
         </li>
 
@@ -55,13 +58,13 @@ export function Breadcrumb({ labels = {}, homeLabel }: BreadcrumbProps) {
                 {isLast ? (
                   <span
                     aria-current="page"
-                    className="font-semibold truncate max-w-50 inline-block align-bottom"
+                    className="font-semibold truncate max-w-30 sm:max-w-50 inline-block align-bottom"
                   >
                     {label}
                   </span>
                 ) : (
                   <Link
-                    className="hover:text-foreground transition-colors truncate max-w-37.5 inline-block align-bottom"
+                    className="hover:text-foreground transition-colors truncate max-w-15 sm:max-w-37.5 inline-block align-bottom"
                     href={href}
                   >
                     {label}
