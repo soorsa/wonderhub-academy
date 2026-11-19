@@ -57,15 +57,17 @@ const Modal = () => {
 
             {isCloseable && (
               <button
-                className="bg-white hover:bg-gray-200 rounded-lg border border-gray-200 text-gray-600 hover:text-gray-900 cursor-pointer h-7 w-7 flex justify-center items-center"
+                className="bg-white hover:bg-gray-200 rounded-sm sm:rounded-lg border border-gray-200 text-gray-600 hover:text-gray-900 cursor-pointer size-6 sm:size-7 flex justify-center items-center"
                 onClick={close}
                 aria-label="Close Modal"
               >
-                <X size={20} />
+                <X className="size-4 sm:size-5" />
               </button>
             )}
           </div>
-          <p className="text-sm text-muted">{description}</p>
+          <p className="text-xs sm:text-sm text-muted font-extralight">
+            {description}
+          </p>
         </div>
         <div
           className={`px-4 pb-4 rounded-lg max-h-[75vh] overflow-y-auto scrollbar-hide`}

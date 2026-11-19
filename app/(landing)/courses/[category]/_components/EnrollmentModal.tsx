@@ -38,7 +38,11 @@ const EnrollmentModal: React.FC<Prop> = ({ course }) => {
 
                 <div className="grid md:grid-cols-2 gap-4 sm:gap-2">
                   <InputField name="email" label="Email Address *" />
-                  <InputField name="phoneNumber" label="Phone Number *" />
+                  <InputField
+                    name="phoneNumber"
+                    label="Phone Number (WhatsApp) *"
+                    type="tel"
+                  />
                 </div>
               </div>
 
