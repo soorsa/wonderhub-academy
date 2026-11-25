@@ -137,15 +137,6 @@ interface EnrolledCourse {
   enrolled_date: string;
 }
 type TransactionStatus = "success" | "pending" | "failed";
-interface Transaction {
-  id: number;
-  amount: number;
-  description: string;
-  payment_method: string;
-  created_at?: string;
-  status: TransactionStatus;
-  transaction_id?: string;
-}
 type NotificationStatus = "Read" | "Unread";
 interface NotificationType {
   id: number;
@@ -265,4 +256,53 @@ interface SelectOption {
   label: string;
   description?: string;
   icon?: React.ReactNode;
+}
+
+type TransactionType = "PAYMENT" | "DEPOSIT" | "WITHDRAWAL" | "REFUND";
+type TransactionStatus = "PENDING" | "SUCCESS" | "FAILED" | "REVERSED";
+type JSONField =
+  | string
+  | number
+  | boolean
+  | null
+  | Json[]
+  | { [key: string]: Json };
+
+interface InitatePaymentPayload {
+  reference?: string;
+  amount: number;
+  currency?: "NGN" | "USD";
+  transaction_type?: TransactionType;
+  status?: TransactionStatus;
+  description: string;
+  metadata?: JSONField;
+  user?: number;
+}
+interface Transaction {
+  id: string;
+  reference: string;
+  amount: number;
+  currency: string;
+  transaction_type: TransactionType;
+  status: TransactionStatus;
+  description: string;
+  metadata: string;
+  created_at: string;
+  updated_at: string;
+  user: number;
+}
+
+interface PreEnrollPayload {
+  course_slug: string;
+  fullname: string;
+  email: string;
+  phone_number: string;
+  amount_paid: number;
+  transaction_id: string;
+}
+
+interface Option {
+  label: string;
+  value: string;
+  description?: string;
 }
