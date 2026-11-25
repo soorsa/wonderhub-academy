@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 const api = axios.create({
-  baseURL: "http://127.0.0.1:8080/", // Replace with your actual API URL
+  baseURL: "https://api.wonderhub.com.ng/", // Replace with your actual API URL
   headers: {
     "Content-Type": "application/json",
     // "Content-Type": "multipart/form-data",
