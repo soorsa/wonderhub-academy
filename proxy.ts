@@ -29,27 +29,28 @@ export function proxy(request: NextRequest) {
   );
 
   // If trying to access auth route while logged in - redirect to dashboard
-  // if (token && isAuthRoute) {
-  //   console.log("yes token");
-  //   const dashboardUrl = new URL("/dashboard", request.url);
-  //   const adminUrl = new URL("/admin", request.url);
-  //   const instructorUrl = new URL("/instructor", request.url);
-  //   if (user_role === "admin") {
-  //     return NextResponse.redirect(adminUrl);
-  //   }
-  //   if (user_role === "instructor") {
-  //     return NextResponse.redirect(instructorUrl);
-  //   }
-  //   return NextResponse.redirect(dashboardUrl);
-  // }
+  if (token && isAuthRoute) {
+    console.log("yes token");
+    const dashboardUrl = new URL("/dashboard", request.url);
+    const homeUrl = new URL("/", request.url);
+    const adminUrl = new URL("/admin", request.url);
+    const instructorUrl = new URL("/instructor", request.url);
+    if (user_role === "admin") {
+      return NextResponse.redirect(adminUrl);
+    }
+    if (user_role === "instructor") {
+      return NextResponse.redirect(homeUrl);
+    }
+    return NextResponse.redirect(homeUrl);
+  }
 
   // // If no token and trying to access protected route - redirect to login
-  // if (!token && isProtectedRoute) {
-  //   console.log("no token");
-  //   const loginUrl = new URL("/login", request.url);
-  //   loginUrl.searchParams.set("redirect", pathname);
-  //   return NextResponse.redirect(loginUrl);
-  // }
+  if (!token && isProtectedRoute) {
+    console.log("no token");
+    const loginUrl = new URL("/login", request.url);
+    loginUrl.searchParams.set("redirect", pathname);
+    return NextResponse.redirect(loginUrl);
+  }
 
   return NextResponse.next();
 }
