@@ -1,15 +1,12 @@
 "use client";
+import { cn } from "@/lib/utils";
 import { ErrorMessage, useField } from "formik";
-import { AlertCircle, Check, Info } from "lucide-react";
+import { Check, Info } from "lucide-react";
 import React, { useEffect } from "react";
-interface Option {
-  label: string;
-  value: string;
-}
 
 interface CheckboxProps {
   name: string;
-  label?: string;
+  label?: string | React.ReactNode;
   type?: "multiple" | "single";
   labelPosition?: "left" | "right";
   options?: Option[];
@@ -18,8 +15,9 @@ interface CheckboxProps {
   maxSelections?: number;
   minSelections?: number;
   defaultSelectAll?: boolean; // New prop for default select all
-  orientation?: "horizontal" | "vertical";
+  orientationStyle?: string;
   optionClassName?: string;
+  labelClassName?: string;
   size?: "xs" | "sm" | "md" | "lg";
 }
 
@@ -34,8 +32,9 @@ const Checkbox: React.FC<CheckboxProps> = ({
   maxSelections,
   minSelections,
   defaultSelectAll = false, // Default to false
-  orientation = "vertical",
+  orientationStyle,
   optionClassName,
+  labelClassName,
   size = "sm",
 }) => {
   const [field, meta, helpers] = useField(name);
@@ -44,7 +43,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
   // Handle checkbox toggle
   const handleChange = () => {
     helpers.setValue(!field.value);
-    helpers.setTouched(true);
+    // helpers.setTouched(true);
   };
 
   const selectedValues: string[] = Array.isArray(field.value)
@@ -144,18 +143,24 @@ const Checkbox: React.FC<CheckboxProps> = ({
     return (
       <div className={`w-full ${className}`}>
         {label && (
-          <div className="flex justify-between items-center mb-2">
-            <p className="font-medium text-gray-700 text-sm">{label}</p>
+          <div className="flex flex-wrap justify-between items-center mb-2">
+            <p
+              className={cn(
+                "font-medium text-gray-700 text-sm",
+                labelClassName
+              )}
+            >
+              {label}
+            </p>
 
             {/* Select All / Deselect All button */}
             {options.length > 1 && !disabled && !defaultSelectAll && (
-              <button
-                type="button"
+              <div
                 onClick={handleSelectAll}
                 className="text-xs hover:text-shadow-sm font-medium"
               >
                 {isAllSelected ? "Deselect All" : "Select All"}
-              </button>
+              </div>
             )}
           </div>
         )}
@@ -175,13 +180,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
           </p>
         )}
 
-        <div
-          className={`flex gap-0 ${
-            orientation === "horizontal"
-              ? "flex-row flex-wrap"
-              : "flex-col border border-gray-200 rounded-lg overflow-hidden"
-          }`}
-        >
+        <div className={`flex gap-0 ${orientationStyle}`}>
           {options.map((option) => {
             const isSelected = selectedValues.includes(option.value);
             const isDisabled =
@@ -193,26 +192,29 @@ const Checkbox: React.FC<CheckboxProps> = ({
             return (
               <label
                 key={option.value}
-                className={`flex items-center justify-between ${
+                className={`flex items-center justify-between rounded-md border border-primary/5 ${
                   size === "xs" && "p.1.5"
-                } ${size === "sm" && "p-2"} cursor-pointer transition-all 
+                } ${size === "sm" && "p-3"} cursor-pointer transition-all 
                 ${
-                  isSelected
-                    ? !hasError
-                      ? "bg-primary/5"
-                      : "border bg-red-100"
-                    : "border-gray-300"
+                  isSelected ? (!hasError ? "bg-primary/5" : " bg-red-100") : ""
                 }
                 ${hasError ? "border-red-500" : ""}
                 ${isDisabled ? "opacity-50 cursor-not-allowed" : ""}
                 ${optionClassName}
               `}
               >
-                <div className="flex items-center gap-3">
+                <div
+                  className={cn(
+                    "flex items-center",
+                    size === "xs" ? "gap-1.5" : "gap-3"
+                  )}
+                >
                   {/* Custom Checkbox Square */}
                   <div
                     className={`
-                    w-5 h-5 rounded-md border flex items-center justify-center transition-all
+                    ${
+                      size === "xs" ? "size-4" : "size-5"
+                    } rounded-sm border flex items-center justify-center transition-all
                     ${
                       isSelected
                         ? !hasError
@@ -225,7 +227,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
                   >
                     {isSelected && (
                       <svg
-                        className="w-3.5 h-3.5 text-white"
+                        className="size-3 text-white"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -239,14 +241,26 @@ const Checkbox: React.FC<CheckboxProps> = ({
                       </svg>
                     )}
                   </div>
-
-                  <span
-                    className={`text-gray-800 text-xs capitalize ${
-                      isDisabled ? "opacity-50" : ""
-                    }`}
-                  >
-                    {option.label}
-                  </span>
+                  <div className="flex-1">
+                    <div
+                      className={`text-gray-800 text-sm font-semibold capitalize ${
+                        isDisabled ? "opacity-50" : ""
+                      } ${
+                        size === "xs"
+                          ? "text-xs"
+                          : size === "sm"
+                          ? "text-sm"
+                          : "text-sm"
+                      }`}
+                    >
+                      {option.label}
+                    </div>
+                    {option.description && (
+                      <div className="text-xs line-clamp-1">
+                        {option.description}
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 {/* Hidden native checkbox input */}
@@ -280,7 +294,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
     <div className={`w-full text-left ${className}`}>
       <label className="flex items-center cursor-pointer">
         {label && labelPosition === "left" && (
-          <span className="text-sm mr-2">{label}</span>
+          <span className={cn("text-sm mr-2", labelClassName)}>{label}</span>
         )}
 
         <div className={`relative flex items-center`}>
@@ -302,21 +316,21 @@ const Checkbox: React.FC<CheckboxProps> = ({
             }
              ${field.value ? "bg-transparent border-primary" : "bg-white"}
             `}
-            onClick={handleChange}
+            // onClick={handleChange}
           >
             {field.value && <Check className="w-3 h-3 text-primary" />}
           </div>
 
           {/* Error Icon */}
-          {hasError && (
+          {/* {hasError && (
             <div className="ml-2">
               <AlertCircle className="w-4 h-4 text-red-500" />
             </div>
-          )}
+          )} */}
         </div>
 
         {label && labelPosition === "right" && (
-          <span className="text-sm ml-2">{label}</span>
+          <span className={cn("text-sm ml-2", labelClassName)}>{label}</span>
         )}
       </label>
 
@@ -324,7 +338,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
       <ErrorMessage
         name={name}
         component="p"
-        className="text-red-500 text-[9px] mt-1 ml-2 text-left"
+        className="text-red-500 text-[10px] ml-7 text-left"
       />
     </div>
   );

@@ -1,8 +1,10 @@
 // components/Footer.tsx
-import LinkButton from "@/components/global/LinkButton";
+import { Button } from "@/components/ui/button";
+import { cn } from "cn";
 import {
   ArrowRight,
   Copyright,
+  Headset,
   Mail,
   MessageCircle,
   PhoneCall,
@@ -31,17 +33,14 @@ const Footer = () => {
             </div>
           </div>
           <div className="grid sm:grid-cols-2 gap-1 text-sm w-full sm:w-2/5">
-            <LinkButton
-              link="https://wa.me/+2349042334662"
-              label="Start your Project"
-              className="no-underline! bg-white"
-              rightIcon={<ArrowRight size={18} />}
-            />
-            <LinkButton
-              link="https://wa.me/+2349042334662"
-              label="Book Free Demo"
-              className="bg-purple-700! text-white no-underline!"
-            />
+            <Button className={cn("py-5 capitalize")} variant={"secondary"}>
+              <span>Start your Journey</span>
+              <ArrowRight />
+            </Button>
+            <Button className={cn("bg-indigo-500 py-5 capitalize")}>
+              <Headset />
+              <span>Apply to teach with us</span>
+            </Button>
           </div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -102,6 +101,11 @@ const Footer = () => {
               <li>
                 <Link href="#" className="hover:text-purple-400 transition">
                   Brand Identity
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="hover:text-purple-400 transition">
+                  Skill Training
                 </Link>
               </li>
             </ul>
