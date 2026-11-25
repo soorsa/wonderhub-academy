@@ -74,45 +74,6 @@ export const enrolledCourses: EnrolledCourse[] = [
   },
 ];
 
-export const transactionData: Transaction[] = [
-  {
-    id: 1,
-    amount: 21000,
-    description:
-      "By training teachers in ICT and Data Science and introducing structured online tech training for rural students, this initiative aims to bridge the digital divide and enhance learning experiences, equipping students with future-ready skills that align with global education standards.",
-    created_at: "25 may 2025",
-    payment_method: "Paystack",
-    status: "success",
-  },
-  {
-    id: 2,
-    amount: 15000,
-    description:
-      "By training teachers in ICT and Data Science and introducing structured online tech training for rural students, this initiative aims to bridge the digital divide and enhance learning experiences, equipping students with future-ready skills that align with global education standards.",
-    created_at: "25 may 2025",
-    payment_method: "Wallet",
-    status: "success",
-  },
-  {
-    id: 3,
-    amount: 9000,
-    description:
-      "By training teachers in ICT and Data Science and introducing structured online tech training for rural students, this initiative aims to bridge the digital divide and enhance learning experiences, equipping students with future-ready skills that align with global education standards.",
-    created_at: "25 may 2025",
-    payment_method: "Paystack",
-    status: "failed",
-  },
-  {
-    id: 3,
-    amount: 145000,
-    description:
-      "By training teachers in ICT and Data Science and introducing structured online tech training for rural students, this initiative aims to bridge the digital divide and enhance learning experiences, equipping students with future-ready skills that align with global education standards.",
-    created_at: "25 may 2025",
-    payment_method: "Bank Transfer",
-    status: "pending",
-  },
-];
-
 export const NotificationData: NotificationType[] = [
   {
     id: 1,
