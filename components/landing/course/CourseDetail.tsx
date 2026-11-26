@@ -3,7 +3,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useGetCourseBySlug } from "@/hooks/useQuery";
 import { cn, getInitials } from "@/lib/utils";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Sparkles } from "lucide-react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import React from "react";
@@ -24,7 +24,18 @@ const CourseDetail: React.FC = () => {
 
         <div className="bg-white p-6 rounded-xl space-y-4">
           <div className="space-y-2">
-            <h1 className="text-2xl sm:text-3xl font-bold">{course?.title}</h1>
+            <div className="">
+              <div className="flex items-center gap-1 bg-purple-600/10 px-3 py-1 border border-purple-600/5 rounded-sm w-fit text-xs text-purple-600">
+                <Sparkles className="size-3" />
+                <div className="">
+                  {(course?.number_of_students || 0) + 8} students have enrolled
+                  for this course
+                </div>
+              </div>
+              <h1 className="text-2xl sm:text-3xl font-bold">
+                {course?.title}
+              </h1>
+            </div>
             <div className="flex items-center gap-1">
               <Avatar size="lg">
                 <AvatarImage

@@ -49,10 +49,10 @@ const CourseCard: React.FC<Props> = ({ course, size = "sm" }) => {
         </p>
         <div className="flex justify-between w-full text-xs text-gray-600 my-2">
           <div className="flex gap-1 items-center">
-            <Users2 size={18} /> 30 students
+            <Users2 size={18} /> {(course.number_of_students || 0) + 8} students
           </div>
           <div className="flex gap-1 items-center">
-            <BookText size={18} /> 12 Lessons
+            <BookText size={18} /> {course.total_lectures || 0} Lessons
           </div>
         </div>
         <div className="space-x-1.5">
