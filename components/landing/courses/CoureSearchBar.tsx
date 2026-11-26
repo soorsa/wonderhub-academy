@@ -43,12 +43,12 @@ const CourseSearchBar = () => {
               />
             </Suspense>
           </div>
-          <div className="bg-white flex gap-1 items-center justify-center sm:hidden p-2 rounded-xl cursor-pointer hover:bg-primary-200">
+          <div className="bg-white flex gap-1 items-center justify-center sm:hidden p-2 rounded-md cursor-pointer hover:bg-primary-200">
             <SlidersHorizontal />
             <div className="">Filter</div>
           </div>
         </div>
-        <div className="flex sm:w-2/3 items-center text-sm sm:text-base divide-x divide-gray-200">
+        <div className="flex sm:w-2/3 items-center text-sm sm:text-base divide-x divide-gray-400">
           <div className="pr-2">
             <Link
               href={"/courses"}
@@ -57,7 +57,7 @@ const CourseSearchBar = () => {
                 !topic
                   ? "bg-primary text-white"
                   : "bg-white border border-gray-100"
-              } rounded-lg px-6 py-2 cursor-pointer`}
+              } rounded-sm md:rounded-lg px-6 py-2 cursor-pointer`}
             >
               All
             </Link>
@@ -67,7 +67,7 @@ const CourseSearchBar = () => {
               <div className="flex item-center gap-2">
                 {[1, 2, 3, 4, 5].map((i) => (
                   <div
-                    className="bg-white/70 min-w-30 h-10 rounded-lg animate-pulse"
+                    className="bg-white/70 min-w-30 h-10 rounded-sm md:rounded-lg animate-pulse"
                     key={i}
                   ></div>
                 ))}
@@ -81,8 +81,8 @@ const CourseSearchBar = () => {
                     className={`${
                       item.slug === topic
                         ? "bg-primary text-white"
-                        : "bg-white/70 border border-gray-100 text-black"
-                    } rounded-lg px-4 py-2 cursor-pointer text-nowrap`}
+                        : "bg-white/70 border border-gray-100 text-black hover:bg-gray-200"
+                    } rounded-sm md:rounded-lg px-4 py-2 cursor-pointer text-nowrap`}
                     key={i}
                   >
                     {item.name}

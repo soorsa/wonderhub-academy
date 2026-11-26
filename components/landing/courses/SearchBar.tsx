@@ -41,7 +41,7 @@ const SearchBar: React.FC<Prop> = ({ params, onSetParams, className }) => {
     <Formik initialValues={initialValues} onSubmit={submit}>
       {() => (
         <Form
-          className={`bg-white flex items-center divide-x divide-gray-200 rounded-xl p-1 ${className}`}
+          className={`bg-white flex items-center divide-x divide-gray-200 rounded-md p-1 ${className}`}
         >
           <InputField
             name="query"

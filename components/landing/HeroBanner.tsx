@@ -231,7 +231,7 @@ const heroSlides = SLIDE_CONTENTS.map((item, i) => (
       </Badge> */}
       <h1
         className={cn(
-          "text-xl font-extrabold leading-none sm:leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl",
+          "text-xl font-extrabold leading-[1.3] md:leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl",
           item.theme.primaryTextColor
         )}
       >
