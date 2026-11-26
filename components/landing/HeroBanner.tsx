@@ -11,6 +11,7 @@ import { getInitials } from "@/lib/utils";
 import { cn } from "cn";
 import { Headset, PlayCircle, Star, UserCircle } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 const instructors = [
   {
@@ -249,16 +250,18 @@ const heroSlides = SLIDE_CONTENTS.map((item, i) => (
         {item.description}
       </p>
       <div className="mt-8 flex flex-row gap-1 sm:gap-3 sm:flex-row">
-        <Button
-          size="lg"
-          className={cn(
-            "h-12 px-5 sm:px-8 text-sm sm:text-base",
-            item.theme.primaryButtonStyle
-          )}
-        >
-          <PlayCircle className="sm:mr-2 h-5 w-5" />
-          Browse courses
-        </Button>
+        <Link href={`/courses`}>
+          <Button
+            size="lg"
+            className={cn(
+              "h-12 px-5 sm:px-8 text-sm sm:text-base",
+              item.theme.primaryButtonStyle
+            )}
+          >
+            <PlayCircle className="sm:mr-2 h-5 w-5" />
+            Browse courses
+          </Button>
+        </Link>
         <Button
           size="lg"
           variant="ghost"

@@ -32,7 +32,7 @@ export const usePaystackPayment = () => {
     // 2. Instantiate and initiate transaction
     const paystack = new PaystackPop();
     paystack.newTransaction({
-      key: process.env.NEXT_PUBLIC_PK_TEST || "", // 🔁 Replace with your Paystack public key
+      key: process.env.NEXT_PUBLIC_PK_LIVE || "", // 🔁 Replace with your Paystack public key
       email,
       amount: amount * 100, // convert to kobo
       currency: "NGN",

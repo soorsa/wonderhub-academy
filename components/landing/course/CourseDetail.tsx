@@ -2,6 +2,7 @@
 "use client";
 import EnrollmentAction from "@/components/landing/course/EnrollmentAction";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { PageLoader } from "@/components/utils/Loaders";
 import { useGetCourseBySlug } from "@/hooks/useQuery";
 import { cn, getInitials } from "@/lib/utils";
 import { Book, CheckCircle2, Sparkles } from "lucide-react";
@@ -11,6 +12,9 @@ import React from "react";
 const CourseDetail: React.FC = () => {
   const { slug } = useParams();
   const { data: course, isLoading } = useGetCourseBySlug(slug);
+  if (isLoading) {
+    return <PageLoader text="Getting Course" />;
+  }
 
   return (
     <>
