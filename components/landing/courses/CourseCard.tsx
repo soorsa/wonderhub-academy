@@ -17,7 +17,7 @@ const CourseCard: React.FC<Props> = ({ course, size = "sm" }) => {
       } flex flex-col bg-white h-fit rounded-xl overflow-hidden hover:shadow-lg`}
     >
       <Link
-        href={`/courses/${course.topics[0].category}/${course.topics[0].slug}/${course.slug}`}
+        href={`/courses/${course.topic[0].category}/${course.topic[0].slug}/${course.slug}`}
         className="h-37.5 w-full overflow-hidden relative"
       >
         <div className="absolute inset-0 bg-black/5 z-10" />
@@ -31,7 +31,7 @@ const CourseCard: React.FC<Props> = ({ course, size = "sm" }) => {
       <div className="flex flex-col gap-2 p-4">
         <div className="">
           <Link
-            href={`/courses/${course.topics[0].category}/${course.topics[0].slug}/${course.slug}`}
+            href={`/courses/${course.topic[0].category}/${course.topic[0].slug}/${course.slug}`}
             className="line-clamp-1 font-bold"
           >
             {course.title}

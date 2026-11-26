@@ -20,7 +20,7 @@ const CreateCourse = () => {
     title: "",
     description: "",
     benefits: [],
-    topic: [],
+    topic_slugs: [],
     suitable_for: [],
     level: "beginner",
     price: 0,
@@ -111,7 +111,7 @@ const CreateCourse = () => {
             <MultiSelect
               label="Select Topics"
               options={options}
-              name="topic"
+              name="topic_slugs"
               className="bg-gray-200"
               labelClassName="text-xs"
             />

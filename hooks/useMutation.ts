@@ -230,18 +230,55 @@ export const useEditCourse = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (payload: CoursePayload) => {
-      const { thumbnail, ...rest } = payload;
-      const formattedPayload =
-        typeof thumbnail !== "string" ? payload : { ...rest };
-      const res = await api.patch(
-        `/courses/${payload.slug}/`,
-        formattedPayload,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const formData = new FormData();
+      if (payload.title && payload.description) {
+        formData.append("title", payload.title);
+        formData.append("description", payload.description);
+      }
+      if (payload.price) {
+        formData.append("price", payload.price.toString());
+      }
+      if (payload.undiscounted_price) {
+        formData.append(
+          "undiscounted_price",
+          payload.undiscounted_price.toString()
+        );
+      }
+      if (payload.benefits) {
+        formData.append("benefits", JSON.stringify(payload.benefits));
+      }
+      if (payload.suitable_for) {
+        formData.append("suitable_for", JSON.stringify(payload.suitable_for));
+      }
+      if (payload.topic_slugs) {
+        payload.topic_slugs.forEach((slug) => {
+          formData.append("topic_slugs", slug);
+        });
+      }
+      if (payload.sale_header) {
+        formData.append("sale_header", payload.sale_header);
+      }
+      if (payload.sale_type) {
+        formData.append("sale_type", payload.sale_type);
+      }
+      if (payload.sales_message) {
+        formData.append("sales_message", payload.sales_message);
+      }
+      if (payload.level) {
+        formData.append("level", payload.level);
+      }
+      if (payload.preview_video) {
+        formData.append("preview_video", payload.preview_video);
+      }
+      if (payload.thumbnail && typeof payload.thumbnail !== "string") {
+        formData.append("thumbnail", payload.thumbnail);
+      }
+
+      const res = await api.patch(`/courses/${payload.slug}/`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       return res.data;
     },
     onSuccess: () => {

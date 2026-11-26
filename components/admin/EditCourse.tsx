@@ -19,14 +19,14 @@ const EditCourse: React.FC<Prop> = ({ course }) => {
   const { mutate, isPending } = useEditCourse();
   const modal = useModal();
   const topics = data || [];
-  const courseTopics = course.topics.map((topic) => topic.slug);
+  const courseTopics = course.topic.map((topic) => topic.slug);
   const initialValues = {
     title: course.title,
     slug: course.slug,
     description: course.description,
-    benefits: course.benefits,
-    suitable_for: course.suitable_for,
-    topic: courseTopics,
+    benefits: course.benefits || [],
+    suitable_for: course.suitable_for || [],
+    topic_slugs: courseTopics,
     level: course.level,
     price: course.price,
     undiscounted_price: course.undiscounted_price,
@@ -50,7 +50,7 @@ const EditCourse: React.FC<Prop> = ({ course }) => {
       .of(Yup.string().trim().min(1).required("required"))
       .max(12, "Too many items")
       .min(1, "Add at least one item"),
-    topic: Yup.array()
+    topic_slugs: Yup.array()
       .of(Yup.string().trim().min(1).required("required"))
       .max(12, "Too many topics")
       .min(1, "Add at least one topic"),
@@ -118,7 +118,7 @@ const EditCourse: React.FC<Prop> = ({ course }) => {
             <MultiSelect
               label="Select Topics"
               options={options}
-              name="topic"
+              name="topic_slugs"
               className="bg-gray-200"
               labelClassName="text-xs"
             />
