@@ -63,8 +63,8 @@ const CoursesList: React.FC<Prop> = ({ courses }) => {
             {formatPrice(course.price)}
           </div>
           <div className="col-span-4 px-2 text-[10px] text-gray-500 flex flex-wrap gap-0.5">
-            {course.topics
-              ? course.topics.slice(0, 2).map((topic) => (
+            {course.topic
+              ? course.topic.slice(0, 2).map((topic) => (
                   <div
                     key={topic.id}
                     className="bg-gray-200 py-0.5 px-3 rounded-sm line-clamp-1"

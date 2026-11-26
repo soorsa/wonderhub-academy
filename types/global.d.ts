@@ -104,8 +104,8 @@ interface Course {
   total_lectures: number;
   benefits: string[];
   suitable_for: string[];
-  topics: Topic[];
-  topic: string[];
+  topic: Topic[];
+  topic_slugs: string[];
 }
 
 interface Modules {
@@ -175,7 +175,7 @@ interface CoursePayload {
   instructor?: number;
   description: string;
   slug?: string;
-  topic?: string[];
+  topic_slugs?: string[];
   level?: string;
   price?: number;
   benefits?: string[];

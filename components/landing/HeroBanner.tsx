@@ -122,7 +122,7 @@ function CommunityCards() {
     <div className="">
       {communities.slice(0, 4).map((c, i) => (
         <div
-          key={c.name}
+          key={i}
           style={
             {
               "--top-mobile": `${i * 60}px`,

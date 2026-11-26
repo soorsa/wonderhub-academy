@@ -21,6 +21,16 @@ const nextConfig: NextConfig = {
         port: "",
       },
       {
+        protocol: "http",
+        hostname: "api.wonderhub.com.ng",
+        port: "",
+      },
+      {
+        protocol: "https",
+        hostname: "api.wonderhub.com.ng",
+        port: "",
+      },
+      {
         protocol: "https",
         hostname: "images.unsplash.com",
         port: "",
