@@ -14,7 +14,7 @@ const CourseCard: React.FC<Props> = ({ course, size = "sm" }) => {
         size === "md" && "min-w-70"
       } ${
         size === "lg" && "min-w-90"
-      } flex flex-col bg-white h-fit rounded-xl overflow-hidden hover:shadow-lg`}
+      } flex flex-col bg-white h-fit rounded-xl sm:rounded-lg overflow-hidden hover:shadow-lg`}
     >
       <Link
         href={`/courses/${course.topic[0].category}/${course.topic[0].slug}/${course.slug}`}

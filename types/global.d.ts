@@ -85,6 +85,8 @@ interface Instructor {
   email: string;
   bio: string;
   job_title: string;
+  number_of_courses: number;
+  number_of_students: number;
 }
 interface Course {
   id: number;

@@ -28,7 +28,7 @@ const EnrollmentModal: React.FC<Prop> = ({ course }) => {
   const { mutate: initiate, isPending: isInitiating } = useInitiatePayment();
   const { mutate: preEnroll, isPending: isEnrolling } = usePreEnroll();
   const formData = {
-    fullName: `${userData?.first_name} ${userData?.last_name}`,
+    fullName: `${userData?.first_name || ""} ${userData?.last_name || ""}`,
     email: userData?.email || "",
     phone: userData?.phone_number || "",
     experienceLevel: "beginner",
@@ -135,7 +135,8 @@ const EnrollmentModal: React.FC<Prop> = ({ course }) => {
                         {course.title}
                       </p>
                       <div className="flex gap-1 text-xs items-center">
-                        <PlayCircle className="size-4" /> {12} Lessons
+                        <PlayCircle className="size-4" />{" "}
+                        {course.total_lectures || 0} Lessons
                       </div>
                     </div>
                   </div>
@@ -152,13 +153,16 @@ const EnrollmentModal: React.FC<Prop> = ({ course }) => {
                         </span>
                       </p>
                       <div className="flex gap-1 text-xs items-center">
-                        <Book className="size-4" /> {12} Courses
+                        <Book className="size-4" />{" "}
+                        {course.instructor.number_of_courses} Courses
                       </div>
                       <div className="flex gap-1 text-xs items-center">
-                        <Award className="size-4" /> {12} Awards
+                        <Award className="size-4" /> {3} Awards
                       </div>
                       <div className="flex gap-1 text-xs items-center">
-                        <GraduationCap className="size-4" /> {12} Students
+                        <GraduationCap className="size-4" />{" "}
+                        {(course.instructor.number_of_students || 0) + 8}{" "}
+                        Students
                       </div>
                     </div>
                   </div>
