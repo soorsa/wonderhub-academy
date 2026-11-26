@@ -1,11 +1,13 @@
 import Checkbox from "@/components/form/CheckBox";
 import InputField from "@/components/form/InputField";
 import { Button } from "@/components/ui/button";
+import StatusModal from "@/components/utils/StatusModal";
 import { usePreEnroll } from "@/hooks/academy/useEnrollment";
 import { useGetUser } from "@/hooks/auth/useAuth";
 import { usePaystackPayment } from "@/hooks/payments/usePaystack";
 import { useInitiatePayment } from "@/hooks/transactions/useTransaction";
 import { formatPrice } from "@/utils/format.utils";
+import { useModal } from "@/zustand/modal.state";
 import { cn } from "cn";
 import { Form, Formik } from "formik";
 import {
@@ -23,6 +25,7 @@ interface Prop {
   course: Course;
 }
 const EnrollmentModal: React.FC<Prop> = ({ course }) => {
+  const { close, open } = useModal();
   const { data: userData } = useGetUser();
   const paySatck = usePaystackPayment();
   const { mutate: initiate, isPending: isInitiating } = useInitiatePayment();
@@ -73,14 +76,34 @@ const EnrollmentModal: React.FC<Prop> = ({ course }) => {
             amount: course.price,
             reference: data.reference,
             onSuccess(reference) {
-              preEnroll({
-                course_slug: course.slug,
-                fullname: params.fullName,
-                phone_number: params.phone,
-                email: params.email,
-                transaction_id: data.id,
-                amount_paid: course.price,
-              });
+              preEnroll(
+                {
+                  course_slug: course.slug,
+                  fullname: params.fullName,
+                  phone_number: params.phone,
+                  email: params.email,
+                  transaction_id: data.id,
+                  amount_paid: course.price,
+                },
+                {
+                  onSuccess() {
+                    open({
+                      content: (
+                        <StatusModal
+                          title="Success"
+                          status="success"
+                          message="You have successfully enrolled for this course."
+                        />
+                      ),
+                      title: "Success",
+                      description:
+                        "You have successfully enrolled for this course.",
+                      headerStyle: "bg-green-500 text-white p-4",
+                      // size:
+                    });
+                  },
+                }
+              );
             },
             onClose() {
               toast.error("Payment canceled");
@@ -205,7 +228,11 @@ const EnrollmentModal: React.FC<Prop> = ({ course }) => {
 
               {/* Submit Button */}
               <div className="grid grid-cols-[1fr_2fr] gap-1">
-                <Button variant={"secondary"} className={cn("h-12 text-base")}>
+                <Button
+                  onClick={close}
+                  variant={"secondary"}
+                  className={cn("h-12 text-base")}
+                >
                   <span>Cancel</span>
                 </Button>
                 <Button
