@@ -106,6 +106,7 @@ interface Course {
   suitable_for: string[];
   topic: Topic[];
   topic_slugs: string[];
+  number_of_students: number;
 }
 
 interface Modules {
