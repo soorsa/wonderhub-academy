@@ -1,3 +1,8 @@
+interface Window {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  fbq: (...args: any[]) => void;
+}
+
 interface LoginPayload {
   email: string;
   password: string;
@@ -308,4 +313,16 @@ interface Option {
   label: string;
   value: string;
   description?: string;
+}
+
+interface PixelOptions {
+  value?: number;
+  currency?: string;
+  num_items?: number;
+  content_ids?: string[] | number[];
+  content_type?: "product" | "product_group";
+  content_name?: string;
+  content_category?: string;
+  search_string?: string;
+  // [key: string]: any; // Allows custom parameters seamlessly
 }
