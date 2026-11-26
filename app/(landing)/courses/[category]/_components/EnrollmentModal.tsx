@@ -7,6 +7,7 @@ import { useGetUser } from "@/hooks/auth/useAuth";
 import { usePaystackPayment } from "@/hooks/payments/usePaystack";
 import { useInitiatePayment } from "@/hooks/transactions/useTransaction";
 import { formatPrice } from "@/utils/format.utils";
+import * as FBPixel from "@/utils/pixel.config";
 import { useModal } from "@/zustand/modal.state";
 import { cn } from "cn";
 import { Form, Formik } from "formik";
@@ -87,6 +88,12 @@ const EnrollmentModal: React.FC<Prop> = ({ course }) => {
                 },
                 {
                   onSuccess() {
+                    FBPixel.event("Purchase", {
+                      content_name: `Enrollment for ${course.title}`,
+                      currency: "USD",
+                      value: 1.2,
+                    });
+
                     open({
                       content: (
                         <StatusModal

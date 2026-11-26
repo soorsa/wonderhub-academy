@@ -53,7 +53,7 @@ const CourseDetail: React.FC = () => {
                   <div className="">{course?.total_lectures || 0} Lessons</div>
                 </div>
               </div>
-              <h1 className="text-2xl sm:text-3xl font-bold">
+              <h1 className="text-lg sm:text-3xl leading-[1.4] md:leading-none font-bold">
                 {course?.title}
               </h1>
             </div>
