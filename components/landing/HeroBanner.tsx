@@ -242,7 +242,7 @@ const heroSlides = SLIDE_CONTENTS.map((item, i) => (
       </h1>
       <p
         className={cn(
-          "mt-2 sm:mt-6 max-w-xl text-sm sm:text-lg sm:leading-relaxed text-slate-600",
+          "mt-2 sm:mt-6 max-w-xl text-base sm:text-lg sm:leading-relaxed text-slate-600",
           item.theme.descriptionColor
         )}
       >

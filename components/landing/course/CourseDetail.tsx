@@ -1,35 +1,56 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
+import EnrollmentAction from "@/components/landing/course/EnrollmentAction";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useGetCourseBySlug } from "@/hooks/useQuery";
 import { cn, getInitials } from "@/lib/utils";
-import { CheckCircle2, Sparkles } from "lucide-react";
+import { Book, CheckCircle2, Sparkles } from "lucide-react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import React from "react";
 const CourseDetail: React.FC = () => {
   const { slug } = useParams();
   const { data: course, isLoading } = useGetCourseBySlug(slug);
+
   return (
     <>
       <div className="space-y-4">
-        <div className="w-full aspect-video rounded-xl overflow-hidden relative">
-          <Image
-            src={course?.thumbnail || "/images/course.jpg"}
-            alt={course?.title || ""}
-            fill
-          />
+        <div className="w-full aspect-video rounded-md sm:rounded-xl overflow-hidden relative">
+          {course?.preview_video ? (
+            <iframe
+              className="absolute inset-0 h-full w-full"
+              src={`https://www.youtube.com/embed/${course?.preview_video}`}
+              // src={course?.preview_video}
+              title={course?.title}
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture;"
+              allowFullScreen
+              referrerPolicy="strict-origin-when-cross-origin"
+            />
+          ) : (
+            <Image
+              src={course?.thumbnail || "/images/course.jpg"}
+              alt={course?.title || ""}
+              fill
+            />
+          )}
           <div className="bg-black/5 absolute inset-0"></div>
         </div>
+        {course && <EnrollmentAction course={course} />}
 
-        <div className="bg-white p-6 rounded-xl space-y-4">
+        <div className="bg-white p-6 rounded-md sm:rounded-xl space-y-4">
           <div className="space-y-2">
             <div className="">
-              <div className="flex items-center gap-1 bg-purple-600/10 px-3 py-1 border border-purple-600/5 rounded-sm w-fit text-xs text-purple-600">
-                <Sparkles className="size-3" />
-                <div className="">
-                  {(course?.number_of_students || 0) + 8} students have enrolled
-                  for this course
+              <div className="flex flex-wrap gap-1 items-center">
+                <div className="flex items-center gap-1 bg-purple-600/10 px-3 py-1 border border-purple-600/5 rounded-sm w-fit text-xs text-purple-600">
+                  <Sparkles className="size-3" />
+                  <div className="">
+                    {(course?.number_of_students || 0) + 8} students have
+                    enrolled for this course
+                  </div>
+                </div>
+                <div className="flex items-center gap-1 bg-slate-200 px-3 py-1 border border-slate-600/5 rounded-sm w-fit text-xs text-slate-600">
+                  <Book className="size-3" />
+                  <div className="">{course?.total_lectures || 0} Lessons</div>
                 </div>
               </div>
               <h1 className="text-2xl sm:text-3xl font-bold">

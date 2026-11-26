@@ -23,27 +23,30 @@ const CourseSidebar: React.FC = () => {
   };
   return (
     <aside className="space-y-6">
-      <div className="bg-white rounded-xl p-6 sticky z-40 top-20 shadow">
-        <h3 className="text-sm font-semibold capitalize text-gray-700 mb-1">
+      <div className="hidden md:block bg-linear-to-br from-primary to-black rounded-xl p-6 sticky z-40 top-20 shadow">
+        <h3 className="text-sm font-semibold capitalize text-white mb-1">
           {course?.sale_header}
         </h3>
-        <p className="text-xs text-gray-600 mt-2">{course?.sales_message}</p>
+        <p className="text-xs text-slate-200 mt-2">{course?.sales_message}</p>
         <div className="flex flex-wrap gap-4 justify-between items-center mt-5">
           <div className="flex items-baseline gap-1">
-            <div className="font-bold text-xl">{formatPrice(salesPrice)}</div>
+            <div className="font-bold text-xl text-white">
+              {formatPrice(salesPrice)}
+            </div>
             {undiscountedPrice > salesPrice && (
-              <div className="text-sm line-through text-gray-500">
+              <div className="text-sm line-through text-slate-200">
                 {formatPrice(undiscountedPrice || 0)}
               </div>
             )}
           </div>
           <Button
-            className={cn("px-5 capitalize")}
+            className={cn("px-5 capitalize rounded-md font-bold")}
             size={"lg"}
+            variant={"secondary"}
             onClick={enroll}
           >
             <span>Enroll Now</span>
-            <ArrowRight />
+            <ArrowRight strokeWidth={4} />
           </Button>
         </div>
       </div>
@@ -77,10 +80,12 @@ const CourseSidebar: React.FC = () => {
         </p>
         <div className="flex divide divide-x divide-wonderhub-200 mt-5">
           <div className="flex gap-1 px-2 text-xs text-gray-600 items-center">
-            <Book size={18} /> {12} courses
+            <Book size={18} /> {course?.instructor.number_of_courses || 0}{" "}
+            courses
           </div>
           <div className="flex gap-1 px-2 text-xs text-gray-600 items-center">
-            <GraduationCap size={18} /> 134 students
+            <GraduationCap size={18} />{" "}
+            {(course?.instructor.number_of_students || 0) + 8} students
           </div>
           <div className="flex gap-1 px-2 text-xs text-gray-600 items-center">
             <Award size={18} /> 3 Awards
