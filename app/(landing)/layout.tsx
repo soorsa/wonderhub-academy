@@ -9,7 +9,7 @@ export default function LandingLayout({
     <div className={``}>
       <Navbar />
       {children}
-      <div className="px-1 sm:px-4">
+      <div className="px-1 sm:px-4 mt-20">
         <Footer />
       </div>
     </div>

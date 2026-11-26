@@ -18,7 +18,7 @@ const CourseDetail: React.FC = () => {
         <div className="w-full aspect-video rounded-md sm:rounded-xl overflow-hidden relative">
           {course?.preview_video ? (
             <iframe
-              className="absolute inset-0 h-full w-full"
+              className="absolute inset-0 h-full w-full z-2"
               src={`https://www.youtube.com/embed/${course?.preview_video}`}
               // src={course?.preview_video}
               title={course?.title}
@@ -33,7 +33,7 @@ const CourseDetail: React.FC = () => {
               fill
             />
           )}
-          <div className="bg-black/5 absolute inset-0"></div>
+          <div className="bg-black/5 absolute inset-0 z-1" />
         </div>
         {course && <EnrollmentAction course={course} />}
 
